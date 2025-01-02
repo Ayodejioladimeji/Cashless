@@ -1,11 +1,17 @@
 import React from "react"
 
-const Header = () => {
+interface Props {
+    title:string
+}
+
+const Header = (props:Props) => {
+
+    // 
+
     return(
         <section className="flex items-center justify-between px-5 h-[80px] border-b">
             <div>
-                <h1 className="text-xl font-semibold">Welcome Back!</h1>
-                <p className="text-base font-medium">Ayodeji Oladimeji</p>
+                <h1 className="text-xl font-semibold capitalize">{props.title}</h1>
             </div>
 
             <div className="size-12 border flex items-center justify-center rounded-full">

@@ -9,7 +9,7 @@ const Sidebar = () => {
     // 
 
     return (
-        <aside className="w-[300px] h-screen border-r">
+        <aside className="fixed top-0 w-[250px] h-screen border-r">
             <div className="pb-6 ">
                 <div className="h-[80px] flex items-center justify-center text-primary-500 font-bold text-2xl mb-10 border-b">
                     Cashless
