@@ -122,7 +122,7 @@ const Loans = () => {
                     <div className="overflow-x-auto">
                         <table className="min-w-full bg-white border border-gray-200 rounded-lg">
                             <thead>
-                                <tr className="bg-gray-100 text-gray-600 uppercase text-sm leading-normal">
+                                <tr className="bg-gray-100 text-gray-600 uppercase text-xs leading-normal">
                                     <th className="py-5 px-6 text-center">ID</th>
                                     <th className="py-5 px-6 text-center">Amount</th>
                                     <th className="py-5 px-6 text-center">Repayment Amount</th>
