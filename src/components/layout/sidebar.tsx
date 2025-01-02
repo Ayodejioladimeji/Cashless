@@ -1,38 +1,43 @@
-import { BarChart2Icon, CreditCardIcon, HandCoins, Repeat, Settings } from "lucide-react";
+import { BarChart2Icon, CreditCardIcon, HandCoins, Settings } from "lucide-react";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import React from "react";
 
 const Sidebar = () => {
+    const pathname = usePathname()
+
+    // 
+
     return (
-        <aside className="w-80 h-screen border-r border-gray-300">
-            <div className="py-6 px-3">
-                <div className="text-primary font-bold text-2xl mb-10">
-                    <span className="text-[]">Cashless</span>
+        <aside className="w-[300px] h-screen border-r">
+            <div className="pb-6 ">
+                <div className="h-[80px] flex items-center justify-center text-primary-500 font-bold text-2xl mb-10 border-b">
+                    Cashless
                 </div>
 
-                <ul className="space-y-4">
+                <ul className="space-y-4 px-3">
                     <li>
                         <Link
-                            href="#"
-                            className="flex items-center gap-3 px-2 py-2 rounded-md hover:bg-primary-200 bg-primary-500 text-white"
+                            href="/dashboard"
+                            className={`flex items-center gap-3 px-2 py-2 rounded-md ${pathname === "/dashboard" ? "bg-primary-500 text-white" : "hover:bg-primary-200"}`}
                         >
-                            <BarChart2Icon/>
+                            <BarChart2Icon />
                             <span>Overview</span>
                         </Link>
                     </li>
                     <li>
                         <Link
-                            href="#"
-                            className="flex items-center gap-3 px-4 py-2 rounded-md hover:bg-primary-200"
+                            href="/dashboard/loans"
+                            className={`flex items-center gap-3 px-4 py-2 rounded-md ${pathname === "/dashboard/loans" ? "bg-primary-500 text-white" : "hover:bg-primary-200"}`}
                         >
-                            <HandCoins/>
+                            <HandCoins />
                             <span>Loans</span>
                         </Link>
                     </li>
                     <li>
                         <Link
-                            href="#"
-                            className="flex items-center gap-3 px-4 py-2 rounded-md hover:bg-primary-200"
+                            href="/dashboard/transactions"
+                            className={`flex items-center gap-3 px-4 py-2 rounded-md ${pathname === "/dashboard/transactions" ? "bg-primary-500 text-white" : "hover:bg-primary-200"}`}
                         >
                             <CreditCardIcon />
                             <span>Transactions</span>
@@ -43,7 +48,7 @@ const Sidebar = () => {
                             href="#"
                             className="flex items-center gap-3 px-4 py-2 rounded-md hover:bg-primary-200"
                         >
-                            <Settings/>
+                            <Settings />
                             <span>Settings</span>
                         </Link>
                     </li>

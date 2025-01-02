@@ -1,4 +1,5 @@
 "use client";
+import Header from "@/components/layout/header";
 import Sidebar from "@/components/layout/sidebar";
 
 
@@ -14,7 +15,8 @@ export default function RootLayout({
                 <div className="w-full flex relative">
                     <Sidebar />
 
-                    <div className={`md:ml-[110px] w-full relative`}>
+                    <div className={` w-full relative`}>
+                        <Header/>
                         {children}
                     </div>
                 </div>
