@@ -87,7 +87,7 @@ function Login() {
                 <section className="w-full md:w-[55%] flex flex-col max-w-xs md:max-w-lg mx-auto items-start justify-start pt-[20px] md:pt-0">
 
                     <div className="w-full flex flex-col justify-center mt-[60px] md:mt-[80px] items-center gap-[8px] mb-[32px]">
-                        <h1 className="w-full text-center text-[#7141F8] text-[24px] md:text-[28px] font-[600] leading-[30px] md:leading-[35px]">
+                        <h1 className="w-full text-center text-primary text-[24px] md:text-[28px] font-[600] leading-[30px] md:leading-[35px]">
                             Login to Cashless
                         </h1>
                         <p className="w-full text-center text-[14px] md:text-[16px] text-[#344054] font-[400] leading-[21px] md:leading-[27px]">
