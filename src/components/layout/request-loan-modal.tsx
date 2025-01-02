@@ -20,10 +20,33 @@ export const RequestLoanModal = () => {
     const [requestloading, setRequestloading] = useState<boolean>(false);
     const inputRef = useRef<any>(null);
     const {state, dispatch} = useContext(DataContext)
+    const [errors, setErrors] = useState({ amount: "", tenure: "", purpose:"" });
+
+
+    const validateForm = () => {
+        const newErrors = { amount: "", tenure: "", purpose: "" };
+        if (!amount) {
+            newErrors.amount = "Amount is required";
+        }
+
+        if (!tenure) {
+            newErrors.tenure = "Tenure is required";
+        }
+
+        if (!purpose) {
+            newErrors.purpose = "Purpose is required";
+        }
+
+        setErrors(newErrors);
+        return !newErrors.amount && !newErrors.tenure && !newErrors.purpose;
+    };
 
 
     const handleSubmit = async (e: any) => {
         e.preventDefault();
+
+        if(validateForm()){
+        }
 
     };
 
@@ -76,18 +99,26 @@ export const RequestLoanModal = () => {
                             value={amount}
                             placeholder="Enter loan amount"
                             onChange={(e) =>
-                                setAmount(e.target.value)
+                               {setAmount(e.target.value),
+                                setErrors((prevErrors) => ({ ...prevErrors, amount: "" }));
+                               }
                             }
                             className="w-full py-3 text-sm text-[#747474] px-4 border rounded-md border-[#D0D0FD] outline-none focus:border-primary-500"
                             ref={inputRef}
                         />
+
+                        {errors.amount && (
+                            <small className="text-[12px] text-[#F81404]">
+                                {errors.amount}
+                            </small>
+                        )}
                     </div>
 
                     <div className="mb-2">
                         <label htmlFor="channel-name" className="block text-sm mb-1 font-semibold">
                             Tenure
                         </label>
-                        <Select onValueChange={(value) => setTenure(value)} value={tenure}>
+                        <Select onValueChange={(value) => { setTenure(value), setErrors((prevErrors) => ({ ...prevErrors, tenure: "" })); }} value={tenure}>
                             <SelectTrigger className="w-full h-[45px] p-3 text-primary border border-gray-300 rounded-md bg-white focus:outline-none focus:ring-[1px] focus:ring-primary-500 focus:border-primary-300">
                                 <SelectValue placeholder="Select tenure" />
                             </SelectTrigger>
@@ -107,6 +138,12 @@ export const RequestLoanModal = () => {
                                 <SelectItem value="12">12months</SelectItem>
                             </SelectContent>
                         </Select>
+
+                        {errors.tenure && (
+                            <small className="text-[12px] text-[#F81404]">
+                                {errors.tenure}
+                            </small>
+                        )}
                     </div>
 
                     <div className="mb-2">
@@ -114,7 +151,7 @@ export const RequestLoanModal = () => {
                             Loan Purpose
                         </label>
                         
-                        <Select onValueChange={(value) => setPurpose(value)} value={purpose}>
+                        <Select onValueChange={(value) => { setPurpose(value), setErrors((prevErrors) => ({ ...prevErrors, purpose: "" })); }} value={purpose}>
                             <SelectTrigger className="w-full h-[45px] p-3 text-primary border border-gray-300 rounded-md bg-white focus:outline-none focus:ring-1 focus:ring-primary-500 focus:border-primary-300">
                                 <SelectValue placeholder="Select loan purpose" />
                             </SelectTrigger>
@@ -131,6 +168,12 @@ export const RequestLoanModal = () => {
                                 <SelectItem value="debt">Debt Consolidation</SelectItem>
                             </SelectContent>
                         </Select>
+
+                        {errors.purpose && (
+                            <small className="text-[12px] text-[#F81404]">
+                                {errors.purpose}
+                            </small>
+                        )}
                     </div>
                 </form>
 
