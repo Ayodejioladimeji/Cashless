@@ -16,7 +16,7 @@ const loans = [
         bankAccount: "1234567890",
         disbursementDate: "2025-01-01",
         repaymentDate: "2025-12-31",
-        status:"active"
+        status: "active"
     },
     {
         id: 2,
@@ -27,7 +27,7 @@ const loans = [
         bankAccount: "9876543210",
         disbursementDate: "2025-02-15",
         repaymentDate: "2025-11-15",
-        status:"inactive"
+        status: "inactive"
     },
     {
         id: 3,
@@ -38,7 +38,7 @@ const loans = [
         bankAccount: "4561237890",
         disbursementDate: "2025-03-20",
         repaymentDate: "2026-03-20",
-        status:"active"
+        status: "active"
     },
     {
         id: 4,
@@ -49,7 +49,7 @@ const loans = [
         bankAccount: "1234567890",
         disbursementDate: "2025-01-01",
         repaymentDate: "2025-12-31",
-        status:"active"
+        status: "active"
     },
     {
         id: 5,
@@ -60,7 +60,7 @@ const loans = [
         bankAccount: "9876543210",
         disbursementDate: "2025-02-15",
         repaymentDate: "2025-11-15",
-        status:"inactive"
+        status: "inactive"
     },
     {
         id: 6,
@@ -71,7 +71,7 @@ const loans = [
         bankAccount: "4561237890",
         disbursementDate: "2025-03-20",
         repaymentDate: "2026-03-20",
-        status:"active"
+        status: "active"
     },
 ];
 
@@ -79,28 +79,36 @@ const loans = [
 const Loans = () => {
     const [visible, setVisible] = useState(false)
     const [showlimit, setShowlimit] = useState(false)
-    const {state, dispatch} = useContext(DataContext)
+    const { state, dispatch } = useContext(DataContext)
 
     // 
 
     return (
         <>
             <Header title="Loans" />
-            <section className="p-5">
+            <section className="px-3 py-5 md:p-5">
 
-                <div className="flex items-center justify-between">
+                <div className="flex flex-col sm:flex-row sm:items-center justify-between">
                     <div>
                         <p className="text-base text-primary-500 font-medium">Loan Amount ₦50,000 Due on 30th Feb, 2025</p>
                     </div>
 
-                    <button 
-                     onClick={() => dispatch({type:ACTIONS.REQUEST_LOAN_MODAL, payload:true})}
-                    className="bg-primary-500 text-white rounded-3xl flex items-center justify-center px-6 py-3 text-sm">Request Loan</button>
+                    <div className="flex items-center gap-3 my-5 sm:my-0">
+                        <button
+                            onClick={() => dispatch({ type: ACTIONS.REQUEST_LOAN_MODAL, payload: true })}
+                            className="bg-primary-500 text-white rounded-3xl flex items-center justify-center px-6 py-3 text-sm">Request Loan
+                        </button>
+
+                        <button
+                            onClick={() => dispatch({ type: ACTIONS.REQUEST_LOAN_MODAL, payload: true })}
+                            className="bg-white text-primary-500 border border-primary-500 rounded-3xl flex items-center justify-center px-6 py-3 text-sm">Repay Loan
+                        </button>
+                    </div>
 
                 </div>
 
-                <div className="flex gap-5">
-                    <div className="border rounded-md p-5 w-[300px] mt-5">
+                <div className="flex flex-col sm:flex-row gap-5">
+                    <div className="border rounded-md p-5 sm:w-[300px] mt-5">
                         <div className="flex items-center gap-2">
                             <span className="text-lg font-semibold">Outstanding Loan</span>
                             {!visible ? <EyeIcon size={20} className="text-gray-500 cursor-pointer" onClick={() => setVisible(true)} />
@@ -110,7 +118,7 @@ const Loans = () => {
                         <h1 className="text-3xl font-bold text-primary-500">{visible ? "₦55,000" : "*****"}</h1>
                     </div>
 
-                    <div className="border rounded-md p-5 w-[300px] mt-5">
+                    <div className="border rounded-md p-5 sm:w-[300px] mt-5">
                         <div className="flex items-center gap-2">
                             <span className="text-lg font-semibold">Loan Limit</span>
                             {!showlimit ? <EyeIcon size={20} className="text-gray-500 cursor-pointer" onClick={() => setShowlimit(true)} />
@@ -126,7 +134,7 @@ const Loans = () => {
                     <h2 className="mb-5 font-semibold text-lg">Loan History</h2>
 
                     <div className="overflow-x-auto">
-                        <table className="min-w-full bg-white border border-gray-200 rounded-lg">
+                        <table className="w-[900px] lg:min-w-full bg-white border border-gray-200 rounded-lg">
                             <thead>
                                 <tr className="bg-gray-100 text-gray-600 uppercase text-xs leading-normal">
                                     <th className="py-5 px-6 text-center">ID</th>
@@ -168,7 +176,7 @@ const Loans = () => {
                 </div>
             </section>
 
-           {state?.requestLoanModal && <RequestLoanModal/>}
+            {state?.requestLoanModal && <RequestLoanModal />}
         </>
     )
 }
