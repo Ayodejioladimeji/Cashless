@@ -20,6 +20,9 @@ export default {
         background: "var(--background)",
         foreground: "var(--foreground)",
       },
+      screens: {
+        xs: "500px",
+      },
     },
   },
   plugins: [],

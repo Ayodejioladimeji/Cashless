@@ -119,9 +119,9 @@ const Transactions = () => {
             <Header title="Transactions" />
             <section className="p-5">
 
-                <div className="flex items-center justify-between">
+                <div className="flex flex-col xs:flex-row xs:items-center justify-between">
                     <Select onValueChange={(value) => setTransactionType(value)} value={transactionType}>
-                        <SelectTrigger className="w-[200px] h-[45px] p-3 text-primary border border-gray-300 rounded-md bg-white focus:outline-none focus:ring-1 focus:ring-primary-500 focus:border-primary-300">
+                        <SelectTrigger className="w-full xs:w-[200px] h-[45px] mb-4 xs:mb-0 p-3 text-primary border border-gray-300 rounded-md bg-white focus:outline-none focus:ring-1 focus:ring-primary-500 focus:border-primary-300">
                             <SelectValue placeholder="Type" />
                         </SelectTrigger>
 
@@ -133,7 +133,7 @@ const Transactions = () => {
                     </Select>
 
 
-                    <input type="search" placeholder="Search transactions" className="border p-3 w-[300px] rounded-md focus:outline-none focus:ring-1 focus:ring-primary-500 focus:border-primary-300"/>
+                    <input type="search" placeholder="Search transactions" className="border p-3 w-full xs:w-[250px] lg:w-[300px] rounded-md focus:outline-none focus:ring-1 focus:ring-primary-500 focus:border-primary-300"/>
                 </div>
 
                 <div className="mt-10">
