@@ -12,10 +12,10 @@ export default function RootLayout({
 
     return (
         <DataProvider>
-                <div className="w-full flex relative">
+                <div className=" relative">
                     <Sidebar />
 
-                    <div className={`md:ml-[250px] w-full relative`}>
+                    <div className={`md:ml-[250px] relative`}>
                         {children}
                     </div>
                 </div>

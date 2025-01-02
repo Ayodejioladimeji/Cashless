@@ -13,6 +13,11 @@ const reducers = (state: any, action: any) => {
         ...state,
         callback: payload,
       };
+    case ACTIONS.OPEN_SIDEBAR:
+      return {
+        ...state,
+        openSidebar: payload,
+      };
     default:
       return state;
   }

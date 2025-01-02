@@ -110,22 +110,22 @@ const Overview = () => {
     return (
         <>
             <Header title="Dashboard" />
-            <section className="p-3 sm:p-5">
+            <section className="p-5 h-screen bg-primary-400 overflow-y-auto">
 
-                <div className="flex flex-col sm:flex-row sm:items-center  sm:justify-between">
-                    <div>
-                        <h1 className="text-xl md:text-2xl font-semibold">Welcome Back!</h1>
-                        <p className="text-lg font-medium">Ayodeji Oladimeji</p>
-                    </div>
+                <div className="flex items-center justify-between">
+                <div>
+                    <h1 className="text-2xl font-semibold">Welcome Back!</h1>
+                    <p className="text-lg font-medium">Ayodeji Oladimeji</p>
+                </div>
 
-                    <button className="w-[120px] mt-5 sm:mt-0 bg-primary-500 text-white rounded-3xl flex items-center justify-center px-6 py-3 text-sm">Add Money</button>
+                <button className="bg-primary-500 text-white rounded-3xl flex items-center justify-center px-6 py-3 text-sm">Add Money</button>
 
                 </div>
 
-                <div className="border rounded-md p-5 sm:w-[300px] mt-5">
+                <div className="border rounded-md p-5 w-[300px] mt-5">
                     <div className="flex items-center gap-2">
                         <span className="text-lg font-semibold">Balance</span>
-                        {!visible ? <EyeIcon size={20} className="text-gray-500 cursor-pointer" onClick={() => setVisible(true)} />
+                        {!visible ? <EyeIcon size={20} className="text-gray-500 cursor-pointer" onClick={() => setVisible(true)}/>
                             : <EyeOffIcon size={20} className="text-gray-500 cursor-pointer" onClick={() => setVisible(false)} />}
 
                     </div>
@@ -134,9 +134,9 @@ const Overview = () => {
 
                 <div className="mt-10">
                     <h2 className="mb-5 font-semibold text-lg">Recent Transactions</h2>
-
+                    
                     <div className="relative overflow-x-auto">
-                        <table className="w-[900px] lg:min-w-full bg-white border border-gray-200 rounded-lg">
+                        <table className="w-[900px] lg:w-full bg-white border border-gray-200 rounded-lg">
                             <thead>
                                 <tr className="bg-gray-100 text-gray-600 uppercase text-xs leading-normal">
                                     <th className="py-5 px-6 text-center">ID</th>
@@ -156,15 +156,16 @@ const Overview = () => {
                                         <td className="py-5 px-6 text-center">{transaction.id}</td>
                                         <td className="py-5 px-6">{transaction.recipient}</td>
                                         <td className="py-5 px-6 text-center">{transaction.amount}</td>
-                                        <td className="py-5 px-6 text-center">
-                                            <span
-                                                className={`py-1 px-4 rounded-lg ${transaction.transactionType === "credit"
-                                                    ? "bg-green-200"
-                                                    : "bg-red-200"
-                                                    }`}
-                                            >
+                                        <td
+                                            className={`py-5 px-6 text-center`}
+                                        >
+                                            <span className={`py-1 px-4 rounded-lg ${transaction.transactionType === "credit"
+                                                ? "bg-green-200"
+                                                : "bg-red-200"
+                                                }`}>
                                                 {transaction.transactionType}
-                                            </span>
+                                                </span>
+                                          
                                         </td>
                                         <td className="py-5 px-6 text-center">{transaction.transactionNo}</td>
                                         <td className="py-5 px-6 text-center">{transaction.transactionDate}</td>
@@ -173,7 +174,6 @@ const Overview = () => {
                             </tbody>
                         </table>
                     </div>
-
                 </div>
             </section>
         </>
