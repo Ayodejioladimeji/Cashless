@@ -1,4 +1,4 @@
-import { BarChart2Icon, CreditCardIcon, HandCoins, Settings } from "lucide-react";
+import { BarChart2Icon, CreditCardIcon, HandCoins, LogOut } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import React from "react";
@@ -48,8 +48,8 @@ const Sidebar = () => {
                             href="#"
                             className="flex items-center gap-3 px-4 py-2 rounded-md hover:bg-primary-200"
                         >
-                            <Settings />
-                            <span>Settings</span>
+                            <LogOut />
+                            <span>Logout</span>
                         </Link>
                     </li>
                 </ul>

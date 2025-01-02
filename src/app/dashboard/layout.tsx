@@ -1,5 +1,6 @@
 "use client";
 import Sidebar from "@/components/layout/sidebar";
+import { DataProvider } from "@/store/GlobalState";
 
 
 export default function RootLayout({
@@ -10,7 +11,7 @@ export default function RootLayout({
     
 
     return (
-        // <DataProvider>
+        <DataProvider>
                 <div className="w-full flex relative">
                     <Sidebar />
 
@@ -18,6 +19,6 @@ export default function RootLayout({
                         {children}
                     </div>
                 </div>
-        // </DataProvider>
+        </DataProvider>
     );
 }

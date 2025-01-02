@@ -1,7 +1,10 @@
 "use client"
 import Header from "@/components/layout/header"
+import { RequestLoanModal } from "@/components/layout/request-loan-modal";
+import { ACTIONS } from "@/store/Actions";
+import { DataContext } from "@/store/GlobalState";
 import { EyeIcon, EyeOffIcon } from "lucide-react"
-import React, { useState } from "react"
+import React, { useContext, useState } from "react"
 
 const loans = [
     {
@@ -76,6 +79,7 @@ const loans = [
 const Loans = () => {
     const [visible, setVisible] = useState(false)
     const [showlimit, setShowlimit] = useState(false)
+    const {state, dispatch} = useContext(DataContext)
 
     // 
 
@@ -89,7 +93,9 @@ const Loans = () => {
                         <p className="text-base text-primary-500 font-medium">Loan Amount ₦50,000 Due on 30th Feb, 2025</p>
                     </div>
 
-                    <button className="bg-primary-500 text-white rounded-3xl flex items-center justify-center px-6 py-3 text-sm">Request Loan</button>
+                    <button 
+                     onClick={() => dispatch({type:ACTIONS.REQUEST_LOAN_MODAL, payload:true})}
+                    className="bg-primary-500 text-white rounded-3xl flex items-center justify-center px-6 py-3 text-sm">Request Loan</button>
 
                 </div>
 
@@ -161,6 +167,8 @@ const Loans = () => {
                     </div>
                 </div>
             </section>
+
+           {state?.requestLoanModal && <RequestLoanModal/>}
         </>
     )
 }
