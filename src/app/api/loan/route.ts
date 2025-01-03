@@ -8,7 +8,6 @@ connectDB();
 
 export async function POST(req: NextRequest) {
   try {
-    
     // Authenticate user
     const user_auth = await auth(req);
     if (!user_auth) {
@@ -24,6 +23,18 @@ export async function POST(req: NextRequest) {
 
     const user = await User.findById(user_auth.id);
 
+    // Check if the user has any active loans
+    const existingLoan = await Loan.findOne({ user: user._id, status: "active" });
+
+    if (existingLoan) {
+      return NextResponse.json(
+        { message: "You have an outstanding loan. Please repay it before applying for a new loan." },
+        { status: 400 }
+      );
+    }
+
+    const loanLimit = 200000
+
     // Parse request body
     const body = await req.json();
     const { loanAmount, tenure, purpose } = body;
@@ -35,9 +46,17 @@ export async function POST(req: NextRequest) {
       );
     }
 
-    // Interest rate (flat) is 5% per month
+    // check if user is trying to bypass limit
+    if (loanAmount > loanLimit) {
+      return NextResponse.json(
+        { message: `Loan amount exceeds the limit of ${loanLimit}.` },
+        { status: 400 }
+      );
+    }
+
+    // Interest rate (5% per month)
     const interestRate = 0.05;
-    const interest = loanAmount * interestRate * parseInt(tenure);
+    const interest = loanAmount * interestRate * parseInt(tenure); 
 
     // Calculate repayment amount (loanAmount + interest)
     const repaymentAmount = loanAmount + interest;
@@ -69,6 +88,50 @@ export async function POST(req: NextRequest) {
       message: "Loan added successfully!",
       loan: newLoan,
     });
+  } catch (err) {
+    if (err instanceof Error) {
+      return NextResponse.json({ message: err.message }, { status: 500 });
+    }
+    return NextResponse.json(
+      { message: "An unexpected error occurred." },
+      { status: 500 }
+    );
+  }
+}
+
+
+
+
+export async function GET(req: NextRequest) {
+  try {
+    // Authenticate user
+    const user_auth = await auth(req);
+    if (!user_auth) {
+      return NextResponse.json(
+        { message: "Invalid Authentication" },
+        { status: 401 }
+      );
+    }
+
+    if (user_auth instanceof Response) {
+      return user_auth;
+    }
+
+    // Fetch loans for the authenticated user
+    const loans = await Loan.find({ user: user_auth.id });
+
+    // If no loans are found
+    if (loans.length === 0) {
+      return NextResponse.json(
+        { message: "No loans found for the user." },
+        { status: 404 }
+      );
+    }
+
+    // Return the loans
+    return NextResponse.json(
+      loans,
+    );
   } catch (err) {
     if (err instanceof Error) {
       return NextResponse.json({ message: err.message }, { status: 500 });
