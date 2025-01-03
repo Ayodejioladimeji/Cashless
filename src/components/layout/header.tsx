@@ -1,5 +1,6 @@
 import { ACTIONS } from "@/store/Actions"
 import { DataContext } from "@/store/GlobalState"
+import { getInitials } from "@/utils/utils"
 import { MenuIcon } from "lucide-react"
 import React, { useContext } from "react"
 
@@ -20,7 +21,7 @@ const Header = (props:Props) => {
             </div>
 
             <div className="size-12 border flex items-center justify-center rounded-full">
-                AO
+                {getInitials(state?.user?.fullname || "")}
             </div>
         </section>
     )

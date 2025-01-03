@@ -1,4 +1,4 @@
-import { AddMoneyModal } from "@/common/add-money-modal";
+import { AddMoneyModal } from "@/components/layout/add-money-modal";
 import { ACTIONS } from "./Actions";
 
 const reducers = (state: any, action: any) => {
@@ -23,6 +23,16 @@ const reducers = (state: any, action: any) => {
       return {
         ...state,
         addMoneyModal: payload,
+      };
+    case ACTIONS.USER:
+      return {
+        ...state,
+        user: payload,
+      };
+    case ACTIONS.TOKEN:
+      return {
+        ...state,
+        token: payload,
       };
     default:
       return state;

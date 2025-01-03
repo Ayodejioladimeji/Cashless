@@ -1,6 +1,6 @@
 "use client"
 import Header from "@/components/layout/header"
-import { RequestLoanModal } from "@/common/request-loan-modal";
+import { RequestLoanModal } from "@/components/layout/request-loan-modal";
 import { ACTIONS } from "@/store/Actions";
 import { DataContext } from "@/store/GlobalState";
 import { EyeIcon, EyeOffIcon } from "lucide-react"
@@ -96,7 +96,7 @@ const Loans = () => {
                     <div className="flex items-center gap-3 my-5 sm:my-0">
                         <button
                             onClick={() => dispatch({ type: ACTIONS.REQUEST_LOAN_MODAL, payload: true })}
-                            className="bg-primary-500 text-white rounded-3xl flex items-center justify-center px-6 py-3 text-sm hover:bg-white hover:text-primary-500 transition duration-200">Request Loan
+                            className="bg-primary-500 text-white rounded-3xl flex items-center justify-center px-6 py-3 text-sm border border-transparent hover:bg-white hover:text-primary-500 hover:border-primary-500 transition duration-200">Request Loan
                         </button>
 
                         <button
@@ -174,9 +174,9 @@ const Loans = () => {
                         </table>
                     </div>
                 </div>
+            {state?.requestLoanModal && <RequestLoanModal />}
             </section>
 
-            {state?.requestLoanModal && <RequestLoanModal />}
         </>
     )
 }

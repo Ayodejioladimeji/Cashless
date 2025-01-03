@@ -54,8 +54,9 @@ function Login() {
       const res = await PostRequest("/auth/login", payload);
 
       if (res?.status === 200 || res?.status === 201) {
-        localStorage.setItem("token", res?.data?.data?.token);
-        localStorage.setItem("user", JSON.stringify(res?.data?.data?.user));
+        localStorage.setItem("token", res?.data?.token);
+        localStorage.setItem("user", JSON.stringify(res?.data?.user));
+        console.log(res?.data)
 
         setTimeout(() => {
             router.push("/dashboard");

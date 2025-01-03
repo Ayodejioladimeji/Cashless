@@ -16,7 +16,9 @@ export const DataProvider = ({ children }: DataProviderProps) => {
     reequestLoanModal:false,
     callback: false,
     openSidebar:false,
-    addMoneyModal:false
+    addMoneyModal:false,
+    user:{},
+    token:""
   };
 
   const [state, dispatch] = useReducer(reducers, initialState);

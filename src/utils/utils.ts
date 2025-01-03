@@ -19,3 +19,12 @@ export const removeNum = (num:string | number) => {
 export const formatMoney = (data: number | string) => {
     return addComma(removeNum(data));
 };
+
+export const getInitials = (name: string) => {
+    return name
+        .split(" ")
+        .map((part) => part[0])
+        .join("")
+        .toUpperCase()
+        .slice(0, 2);
+};

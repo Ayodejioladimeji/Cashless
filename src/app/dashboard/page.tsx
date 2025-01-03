@@ -1,5 +1,5 @@
 "use client"
-import { AddMoneyModal } from "@/common/add-money-modal";
+import { AddMoneyModal } from "@/components/layout/add-money-modal";
 import Header from "@/components/layout/header"
 import { ACTIONS } from "@/store/Actions";
 import { DataContext } from "@/store/GlobalState";
@@ -108,6 +108,7 @@ const transactions = [
 const Overview = () => {
     const [visible, setVisible] = useState(false)
     const { state, dispatch } = useContext(DataContext)
+    console.log(state?.user)
 
     // 
 
@@ -119,7 +120,7 @@ const Overview = () => {
                 <div className="flex flex-col sm:flex-row sm:items-center  sm:justify-between">
                     <div>
                         <h1 className="text-xl md:text-2xl font-semibold">Welcome Back!</h1>
-                        <p className="text-lg font-medium">Ayodeji Oladimeji</p>
+                        <p className="text-lg font-medium">{state?.user?.fullname}</p>
                     </div>
 
                     <div className="flex items-center gap-3">

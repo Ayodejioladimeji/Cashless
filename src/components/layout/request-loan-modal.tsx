@@ -13,7 +13,7 @@ import { PostRequest } from "@/utils/request";
 import { DataContext } from "@/store/GlobalState";
 import { ACTIONS } from "@/store/Actions";
 import { formatMoney } from "@/utils/utils";
-import cogoToast from "cogo-toast";
+import cogoToast from '@successtar/cogo-toast';
 
 export const RequestLoanModal = () => {
     const [amount, setAmount] = useState<string>("")
