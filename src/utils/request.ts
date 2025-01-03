@@ -1,5 +1,5 @@
 import axios from "axios";
-import cogoToast from "cogo-toast";
+import cogoToast from '@successtar/cogo-toast';
 const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL;
 
 
@@ -17,11 +17,11 @@ export const GetRequest = async (url: string, token?: string) => {
   } catch (error: any) {
     if (error?.response?.status === 401) {
       localStorage.clear();
-      window.location.href = "/auth/login";
+      window.location.href = "/";
     }
     if (error?.response?.data?.status_code === 401) {
       localStorage.clear();
-      window.location.href = "/auth/login";
+      window.location.href = "/";
     }
     // cogoToast.error(error?.response?.data?.message);
     return error;
@@ -38,35 +38,18 @@ export const PostRequest = async (url: string, data?: any, token?: string) => {
       },
     });
 
-    // SuccessWebhook(
-    //   "Telex",
-    //   `${res?.data?.message} - ${res?.status} \n `,
-    //   `URL: ${res?.request?.responseUrl} \n
-    //   MESSAGE: ${res?.request?.response}
-    //   `,
-    //   "success"
-    // );
-
     return res;
   } catch (error: any) {
     cogoToast.error(error?.response?.data?.message);
+    
     if (error?.response?.status === 401) {
       localStorage.clear();
-      window.location.href = "/auth/login";
+      window.location.href = "/";
     }
     if (error?.response?.data?.status_code === 401) {
       localStorage.clear();
-      window.location.href = "/auth/login";
+      window.location.href = "/";
     }
-
-    // ErrorWebhook(
-    //   "Telex",
-    //   `${error?.response?.statusText} - ${error?.response?.status} \n ${error?.response?.data?.message}`,
-    //   `URL: ${ error?.request?.responseUrl} \n
-    //   MESSAGE: ${ error?.request?.response}
-    //   `,
-    //   "error"
-    // );
 
     return error;
   }
@@ -87,11 +70,11 @@ export const PatchRequest = async (url: string, data?: any, token?: string) => {
     cogoToast.error(error?.response?.data?.message);
     if (error?.response?.status === 401) {
       localStorage.clear();
-      window.location.href = "/auth/login";
+      window.location.href = "/";
     }
     if (error?.response?.data?.status_code === 401) {
       localStorage.clear();
-      window.location.href = "/auth/login";
+      window.location.href = "/";
     }
     return error;
   }
@@ -112,11 +95,11 @@ export const PutRequest = async (url: string, data?: any, token?: string) => {
     cogoToast.error(error?.response?.data?.message);
     if (error?.response?.status === 401) {
       localStorage.clear();
-      window.location.href = "/auth/login";
+      window.location.href = "/";
     }
     if (error?.response?.data?.status_code === 401) {
       localStorage.clear();
-      window.location.href = "/auth/login";
+      window.location.href = "/";
     }
     return error;
   }

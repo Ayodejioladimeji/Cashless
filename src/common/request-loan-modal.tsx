@@ -12,6 +12,8 @@ import {
 import { PostRequest } from "@/utils/request";
 import { DataContext } from "@/store/GlobalState";
 import { ACTIONS } from "@/store/Actions";
+import { formatMoney } from "@/utils/utils";
+import cogoToast from "cogo-toast";
 
 export const RequestLoanModal = () => {
     const [amount, setAmount] = useState<string>("")
@@ -44,8 +46,24 @@ export const RequestLoanModal = () => {
 
     const handleSubmit = async (e: any) => {
         e.preventDefault();
+        const token = localStorage.getItem("token") || ""
+
+        const payload = {
+            loanAmount: amount,
+            tenure,
+            purpose
+        }
 
         if(validateForm()){
+            setRequestloading(true)
+
+            const res = await PostRequest("/loan", payload, token)
+            if(res?.status === 200 || res?.status === 201){
+                cogoToast.success(res?.data?.message)
+                dispatch({type:ACTIONS.REQUEST_LOAN_MODAL, payload:false})
+            }
+
+            setRequestloading(false)
         }
 
     };
@@ -83,7 +101,7 @@ export const RequestLoanModal = () => {
                     </div>
 
                     <p className="text-[#586283] text-sm">
-                        Please note that when you repay your loan before due date, you will still need to pay all the interest on the loan
+                        Please note that when you repay your loan before due date, you will still need to pay all the interest on the loan <span className="text-primary-500">(interest:4%)</span>
                     </p>
                 </div>
 
@@ -99,7 +117,8 @@ export const RequestLoanModal = () => {
                             value={amount}
                             placeholder="Enter loan amount"
                             onChange={(e) =>
-                               {setAmount(e.target.value),
+                            {
+                                setAmount(formatMoney(e.target.value)),
                                 setErrors((prevErrors) => ({ ...prevErrors, amount: "" }));
                                }
                             }

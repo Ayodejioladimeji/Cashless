@@ -54,17 +54,14 @@ function Login() {
       const res = await PostRequest("/auth/login", payload);
 
       if (res?.status === 200 || res?.status === 201) {
-        localStorage.setItem("token", res?.data?.data?.access_token);
+        localStorage.setItem("token", res?.data?.data?.token);
         localStorage.setItem("user", JSON.stringify(res?.data?.data?.user));
 
         setTimeout(() => {
-          if (res?.data?.data?.user?.is_onboarded) {
             router.push("/dashboard");
-          } else {
-            router.push("/dashboard/welcome");
-          }
         }, 100);
       }
+      setLoading(false)
     }
   };
 
@@ -96,7 +93,7 @@ function Login() {
           </div>
 
           <p className="flex justify-center text-[14px] font-[400] leading-[21px] mb-4 text-center">
-            You can create an account or Just login with the provided info in the inputs.
+            Testing: You can create an account or Just login with the provided info in the inputs.
           </p>
 
           <form onSubmit={handleSubmit} className="w-full">

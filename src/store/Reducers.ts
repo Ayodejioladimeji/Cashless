@@ -1,3 +1,4 @@
+import { AddMoneyModal } from "@/common/add-money-modal";
 import { ACTIONS } from "./Actions";
 
 const reducers = (state: any, action: any) => {
@@ -17,6 +18,11 @@ const reducers = (state: any, action: any) => {
       return {
         ...state,
         openSidebar: payload,
+      };
+    case ACTIONS.ADD_MONEY_MODAL:
+      return {
+        ...state,
+        addMoneyModal: payload,
       };
     default:
       return state;

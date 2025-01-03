@@ -3,11 +3,11 @@ import mongoose from "mongoose";
 const loanSchema = new mongoose.Schema(
     {
         loanAmount: {
-            type: String,
+            type: Number,
             required: true,
         },
         repaymentAmount: {
-            type: String,
+            type: Number,
             required: true,
         },
         interest: {

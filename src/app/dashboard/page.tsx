@@ -1,7 +1,10 @@
 "use client"
+import { AddMoneyModal } from "@/common/add-money-modal";
 import Header from "@/components/layout/header"
+import { ACTIONS } from "@/store/Actions";
+import { DataContext } from "@/store/GlobalState";
 import { EyeIcon, EyeOffIcon } from "lucide-react"
-import React, { useState } from "react"
+import React, { useContext, useState } from "react"
 
 const transactions = [
     {
@@ -104,6 +107,7 @@ const transactions = [
 
 const Overview = () => {
     const [visible, setVisible] = useState(false)
+    const { state, dispatch } = useContext(DataContext)
 
     // 
 
@@ -118,7 +122,13 @@ const Overview = () => {
                         <p className="text-lg font-medium">Ayodeji Oladimeji</p>
                     </div>
 
-                    <button className="w-[120px] mt-5 sm:mt-0 bg-primary-500 text-white rounded-3xl flex items-center justify-center px-6 py-3 text-sm">Add Money</button>
+                    <div className="flex items-center gap-3">
+                        <button onClick={() => dispatch({ type: ACTIONS.ADD_MONEY_MODAL, payload: true })} className="bg-primary-500 text-white rounded-3xl flex items-center justify-center px-6 py-3 text-sm border border-transparent hover:bg-white hover:text-primary-500 hover:border-primary-500 transition duration-200">Add Money</button>
+                        <button
+                            // onClick={() => dispatch({ type: ACTIONS.ADD_MONEY_MODAL, payload: true })}
+                            className="bg-white text-primary-500 border border-primary-500 rounded-3xl flex items-center justify-center px-6 py-3 text-sm hover:bg-primary-500 hover:text-white hover:border-transparent transition duration-200">Withdraw
+                        </button>
+                    </div>
 
                 </div>
 
@@ -176,6 +186,8 @@ const Overview = () => {
 
                 </div>
             </section>
+
+            {state?.addMoneyModal && <AddMoneyModal />}
         </>
     )
 }

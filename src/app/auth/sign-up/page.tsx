@@ -6,6 +6,8 @@ import { useRouter } from "next/navigation";
 import { PostRequest } from "@/utils/request";
 import Loading from "@/components/ui/loading";
 import { EyeIcon, EyeOffIcon } from "lucide-react";
+import cogoToast from '@successtar/cogo-toast';
+
 
 
 //
@@ -52,29 +54,27 @@ function Signup() {
             setLoading(true);
 
             const payload = {
+                fullname,
                 email,
                 password,
             };
 
-            const res = await PostRequest("/auth/login", payload);
+            const res = await PostRequest("/auth/sign-up", payload);
 
             if (res?.status === 200 || res?.status === 201) {
-                localStorage.setItem("token", res?.data?.data?.access_token);
-                localStorage.setItem("user", JSON.stringify(res?.data?.data?.user));
+                cogoToast.success("Registration Successful")
+                
 
                 setTimeout(() => {
-                    if (res?.data?.data?.user?.is_onboarded) {
-                        router.push("/dashboard");
-                    } else {
-                        router.push("/dashboard/welcome");
-                    }
+                    router.push("/");
                 }, 100);
             }
+            setLoading(false)
         }
     };
 
     const handleNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        setEmail(e.target.value);
+        setFullname(e.target.value);
         setErrors((prevErrors) => ({ ...prevErrors, fullname: "" }));
     };
 
@@ -199,7 +199,7 @@ function Signup() {
                         <button
                             type="submit"
                             className="flex items-center justify-center mt-[32px] w-full h-[50px] rounded-md bg-[#7141F8] hover:bg-[#8760f8] text-white"
-                            disabled={loading ? true : false}
+                            // disabled={loading ? true : false}
                         >
                             {loading ? (
                                 <span className="flex items-center gap-x-2">
