@@ -25,17 +25,9 @@ export async function GET(req: NextRequest) {
             createdAt: -1,
         });
 
-        if (!transactions || transactions.length === 0) {
-            return NextResponse.json(
-                { message: "No transactions found for this user." },
-                { status: 404 }
-            );
-        }
-
-        return NextResponse.json({
-            message: "Transactions fetched successfully!",
-            transactions,
-        });
+        return NextResponse.json(
+            transactions
+        );
     } catch (err) {
         if (err instanceof Error) {
             return NextResponse.json({ message: err.message }, { status: 500 });

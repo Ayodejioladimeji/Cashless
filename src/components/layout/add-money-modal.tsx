@@ -12,6 +12,8 @@ import {
 import { PostRequest } from "@/utils/request";
 import { DataContext } from "@/store/GlobalState";
 import { ACTIONS } from "@/store/Actions";
+import { formatMoney, removeNum } from "@/utils/utils";
+import cogoToast from "@successtar/cogo-toast";
 
 export const AddMoneyModal = () => {
     const [amount, setAmount] = useState<string>("")
@@ -42,11 +44,21 @@ export const AddMoneyModal = () => {
         e.preventDefault();
 
         const payload = {
-
+            amount : Number(removeNum(amount)), 
+            recipient
         }
 
         if(validateForm()){
-            
+            setRequestloading(true)
+
+            const res = await PostRequest("/transaction/credit", payload, state?.token)
+            if(res?.status === 200 || res?.status === 201){
+                dispatch({type:ACTIONS.CALLBACK, payload:!state?.callback})
+                dispatch({type:ACTIONS.ADD_MONEY_MODAL, payload:false})
+                cogoToast.success(res?.data?.message)
+            }
+
+            setRequestloading(false)
         }
 
     };
@@ -100,7 +112,8 @@ export const AddMoneyModal = () => {
                             value={amount}
                             placeholder="Enter loan amount"
                             onChange={(e) =>
-                               {setAmount(e.target.value),
+                            {
+                                setAmount(formatMoney(e.target.value)),
                                 setErrors((prevErrors) => ({ ...prevErrors, amount: "" }));
                                }
                             }
@@ -127,7 +140,7 @@ export const AddMoneyModal = () => {
                             value={recipient}
                             placeholder="Name of the sender"
                             onChange={(e) => {
-                                setAmount(e.target.value),
+                                setRecipient(e.target.value),
                                 setErrors((prevErrors) => ({ ...prevErrors, recipient: "" }));
                             }
                             }

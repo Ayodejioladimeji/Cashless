@@ -5,7 +5,7 @@ import Loading from "@/components/ui/loading";
 import { ACTIONS } from "@/store/Actions";
 import { DataContext } from "@/store/GlobalState";
 import { GetRequest } from "@/utils/request";
-import { formatMoney } from "@/utils/utils";
+import { formatMoney, formatNumbers } from "@/utils/utils";
 import { EyeIcon, EyeOffIcon } from "lucide-react"
 import moment from "moment";
 import React, { useContext, useEffect, useState } from "react"
@@ -29,26 +29,30 @@ const Overview = () => {
 
     // get user balance
     useEffect(() => {
-        const getBalance = async () => {
-            const res = await GetRequest("/balance", state?.token)
-            if (res?.status === 200 || res?.status === 201) {
-                setbalance(res?.data)
+        if(state?.token){
+            const getBalance = async () => {
+                const res = await GetRequest("/balance", state?.token)
+                if (res?.status === 200 || res?.status === 201) {
+                    setbalance(res?.data?.balance)
+                }
             }
+            getBalance()
         }
-        getBalance()
-    }, [])
+    }, [state?.token, state?.callback])
 
     // get recent transactions
     useEffect(() => {
-        const getBalance = async () => {
-            const res = await GetRequest("/transaction", state?.token)
-            if (res?.status === 200 || res?.status === 201) {
-                setbalance(res?.data)
+        if(state?.token){
+            const getTransactions = async () => {
+                const res = await GetRequest("/transaction", state?.token)
+                if (res?.status === 200 || res?.status === 201) {
+                    setRecentTransactions(res?.data)
+                }
+                setLoading(false)
             }
-            setLoading(false)
+            getTransactions()
         }
-        getBalance()
-    }, [])
+    }, [state?.token, state?.callback])
 
     // 
 
@@ -102,14 +106,14 @@ const Overview = () => {
                                 </tr>
                             </thead>
                             <tbody className="text-gray-600 text-sm font-light">
-                                {recentTransactions.map((transaction, index) => (
+                                {recentTransactions?.map((transaction, index) => (
                                     <tr
                                         key={transaction._id}
                                         className="border-b border-gray-200 hover:bg-gray-100"
                                     >
                                         <td className="py-5 px-6 text-center">{index + 1}</td>
                                         <td className="py-5 px-6">{transaction.recipient}</td>
-                                        <td className="py-5 px-6 text-center">{transaction.amount}</td>
+                                        <td className="py-5 px-6 text-center">₦{formatNumbers(transaction.amount)}</td>
                                         <td className="py-5 px-6 text-center">
                                             <span
                                                 className={`py-1 px-4 rounded-lg ${transaction.type === "credit"

@@ -51,7 +51,6 @@ export const formatNumbers = (amount : number | string) => {
 export const generateTransactionReference = (): string => {
     const prefix = "TRX";
     const timestamp = Date.now().toString();
-    const randomString = Math.random().toString(36).substring(2, 10).toUpperCase();
 
-    return `${prefix}-${timestamp}-${randomString}`;
+    return `${prefix}-${timestamp}`;
 }
