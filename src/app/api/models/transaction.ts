@@ -14,7 +14,7 @@ const transactionSchema = new mongoose.Schema(
             type: String,
             required: true,
         },
-        transactionType: {
+        type: {
             type: String,
             default: "",
         },

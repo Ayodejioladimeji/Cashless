@@ -3,8 +3,10 @@ import { AddMoneyModal } from "@/components/layout/add-money-modal";
 import Header from "@/components/layout/header"
 import { ACTIONS } from "@/store/Actions";
 import { DataContext } from "@/store/GlobalState";
+import { GetRequest } from "@/utils/request";
+import { formatMoney } from "@/utils/utils";
 import { EyeIcon, EyeOffIcon } from "lucide-react"
-import React, { useContext, useState } from "react"
+import React, { useContext, useEffect, useState } from "react"
 
 const transactions = [
     {
@@ -108,7 +110,18 @@ const transactions = [
 const Overview = () => {
     const [visible, setVisible] = useState(false)
     const { state, dispatch } = useContext(DataContext)
-    console.log(state?.user)
+    const [balance, setbalance] = useState<number>(0)
+
+    // get user balance
+    useEffect(() => {
+        const getBalance = async () => {
+            const res = await GetRequest("/balance", state?.token)
+            if (res?.status === 200 || res?.status === 201) {
+                setbalance(res?.data)
+            }
+        }
+        getBalance()
+    }, [])
 
     // 
 
@@ -140,7 +153,7 @@ const Overview = () => {
                             : <EyeOffIcon size={20} className="text-gray-500 cursor-pointer" onClick={() => setVisible(false)} />}
 
                     </div>
-                    <h1 className="text-3xl font-bold text-primary-500">{visible ? "₦55,000" : "*****"}</h1>
+                    <h1 className="text-3xl font-bold text-primary-500">{visible ? `₦ ${formatMoney(balance)}` : "*****"}</h1>
                 </div>
 
                 <div className="mt-10">
