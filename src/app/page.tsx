@@ -170,7 +170,7 @@ function Login() {
 
             <button
               type="submit"
-              className="w-full h-[50px] rounded-md bg-[#7141F8] hover:bg-[#8760f8] text-white"
+              className="flex items-center justify-center w-full h-[50px] rounded-md bg-[#7141F8] hover:bg-[#8760f8] text-white"
               disabled={loading ? true : false}
             >
               {loading ? (
