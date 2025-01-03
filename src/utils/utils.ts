@@ -29,7 +29,7 @@ export const getInitials = (name: string) => {
         .slice(0, 2);
 };
 
-export const formatNumbers = (amount :number | string) => {
+export const formatNumbers = (amount : number | string) => {
     // Convert the amount to a string
     let amountStr = typeof amount === "number" ? amount.toString() : amount;
 

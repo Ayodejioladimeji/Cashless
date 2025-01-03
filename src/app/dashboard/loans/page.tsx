@@ -13,7 +13,7 @@ import React, { useContext, useEffect, useState } from "react"
 
 // Define the Loan type
 interface Loan {
-    id: number;
+    _id: number;
     bankName: string;
     loanAmount: string;
     repaymentAmount: string;
@@ -30,7 +30,7 @@ const Loans = () => {
     const { state, dispatch } = useContext(DataContext)
     const [loans, setLoans] = useState<Loan[]>([]) 
     const [loading, setLoading] = useState(true)
-
+    const [activeLoan, setActiveLoan] = useState<Loan | null>(null)
     // get loans
     useEffect(() => {
         if (state?.token) {
@@ -38,12 +38,17 @@ const Loans = () => {
                 const res = await GetRequest("/loan", state?.token)
                 if (res?.status === 200 || res?.status === 201) {
                     setLoans(res?.data)
+
+                    // get active loan
+                    const active_loan = res?.data?.find((item:any) => item?.status === "active")
+                    setActiveLoan(active_loan)
                 }
                 setLoading(false)
             }
             getLoans()
         }
     }, [state?.token, state?.callback])
+
 
     // 
     
@@ -53,7 +58,7 @@ const Loans = () => {
             <section className="px-3 py-5 md:p-5">
                 <div className="flex flex-col sm:flex-row sm:items-center justify-between">
                     <div>
-                        <p className="text-base text-primary-500 font-medium">Loan Amount ₦50,000 Due on 30th Feb, 2025</p>
+                        <p className="text-base text-primary-500 font-medium">Loan Amount ₦{activeLoan?.loanAmount} Due on {moment(activeLoan?.repaymentDate).format("ll")}</p>
                     </div>
 
                     <div className="flex items-center gap-3 my-5 sm:my-0">
@@ -76,7 +81,7 @@ const Loans = () => {
                             {!visible ? <EyeIcon size={20} className="text-gray-500 cursor-pointer" onClick={() => setVisible(true)} />
                                 : <EyeOffIcon size={20} className="text-gray-500 cursor-pointer" onClick={() => setVisible(false)} />}
                         </div>
-                        <h1 className="text-3xl font-bold text-primary-500">{visible ? "₦55,000" : "*****"}</h1>
+                        <h1 className="text-3xl font-bold text-primary-500">{visible ? `₦${!activeLoan ? "0" : formatNumbers(activeLoan?.loanAmount)}` : "*****"}</h1>
                     </div>
 
                     <div className="border rounded-md p-5 sm:w-[300px] mt-5">
