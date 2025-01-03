@@ -11,8 +11,8 @@ import { EyeIcon, EyeOffIcon } from "lucide-react";
 //
 
 function Login() {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [email, setEmail] = useState("ayodeji@mailinator.com");
+  const [password, setPassword] = useState("11111111");
   const [showPassword, setShowPassword] = useState(false);
   const [errors, setErrors] = useState({ email: "", password: "" });
   const router = useRouter();
@@ -94,6 +94,10 @@ function Login() {
               {` Welcome back! We've missed you!`}
             </p>
           </div>
+
+          <p className="flex justify-center text-[14px] font-[400] leading-[21px] mb-4 text-center">
+            You can create an account or Just login with the provided info in the inputs.
+          </p>
 
           <form onSubmit={handleSubmit} className="w-full">
             <div className="flex flex-col gap-[16px]">

@@ -22,7 +22,7 @@ const Sidebar = () => {
                      className="absolute top-4 right-5 cursor-pointer flex md:hidden"/>
                 </div>
 
-                <ul className="space-y-4 px-3">
+                <ul className="space-y-4 px-3" onClick={() => dispatch({ type: ACTIONS.OPEN_SIDEBAR, payload: false })}>
                     <li>
                         <Link
                             href="/dashboard"
