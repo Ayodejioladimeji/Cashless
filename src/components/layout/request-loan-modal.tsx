@@ -12,7 +12,7 @@ import {
 import { PostRequest } from "@/utils/request";
 import { DataContext } from "@/store/GlobalState";
 import { ACTIONS } from "@/store/Actions";
-import { formatMoney } from "@/utils/utils";
+import { formatMoney, removeNum } from "@/utils/utils";
 import cogoToast from '@successtar/cogo-toast';
 
 export const RequestLoanModal = () => {
@@ -49,7 +49,7 @@ export const RequestLoanModal = () => {
         const token = localStorage.getItem("token") || ""
 
         const payload = {
-            loanAmount: amount,
+            loanAmount: Number(removeNum(amount)),
             tenure,
             purpose
         }

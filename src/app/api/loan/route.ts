@@ -8,6 +8,7 @@ connectDB();
 
 export async function POST(req: NextRequest) {
   try {
+    
     // Authenticate user
     const user_auth = await auth(req);
     if (!user_auth) {
@@ -34,30 +35,31 @@ export async function POST(req: NextRequest) {
       );
     }
 
-    // Interest rate (flat) is 4%
-    const interestRate = 0.04;
-    const interest = loanAmount * interestRate;
+    // Interest rate (flat) is 5% per month
+    const interestRate = 0.05;
+    const interest = loanAmount * interestRate * parseInt(tenure);
 
-    // Calculate repayment amount
+    // Calculate repayment amount (loanAmount + interest)
     const repaymentAmount = loanAmount + interest;
 
-    // Set disbursement date to the current date
-    const disbursementDate = new Date();
+    // Set disbursement date to the current date in ISO format
+    const disbursementDate = new Date().toISOString();
 
-    // Calculate repayment date based on tenure (in months)
-    const repaymentDate = new Date(disbursementDate);
-    repaymentDate.setMonth(repaymentDate.getMonth() + tenure);
+    // Calculate repayment date based on tenure (in months), and set it in ISO format
+    const repaymentDate = new Date();
+    repaymentDate.setMonth(repaymentDate.getMonth() + parseInt(tenure));
+    const repaymentDateISO = repaymentDate.toISOString();
 
     // Create the new loan with status "active"
     const newLoan = new Loan({
-      user:user._id,
+      user: user._id,
       loanAmount,
       repaymentAmount,
       interest,
       tenure,
       purpose,
       disbursementDate,
-      repaymentDate,
+      repaymentDate: repaymentDateISO,
       status: "active",
     });
 
@@ -77,6 +79,3 @@ export async function POST(req: NextRequest) {
     );
   }
 }
-
-
-
