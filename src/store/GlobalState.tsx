@@ -13,7 +13,8 @@ interface DataProviderProps {
 
 export const DataProvider = ({ children }: DataProviderProps) => {
   const initialState = {
-    reequestLoanModal:false,
+    requestLoanModal:false,
+    repayLoanModal:false,
     callback: false,
     openSidebar:false,
     addMoneyModal:false,

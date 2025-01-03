@@ -1,5 +1,6 @@
 "use client"
 import Header from "@/components/layout/header"
+import { RepayLoanModal } from "@/components/layout/repay-loan";
 import { RequestLoanModal } from "@/components/layout/request-loan-modal";
 import Loading from "@/components/ui/loading";
 import { ACTIONS } from "@/store/Actions";
@@ -42,8 +43,10 @@ const Loans = () => {
             }
             getLoans()
         }
-    }, [state?.token])
+    }, [state?.token, state?.callback])
 
+    // 
+    
     return (
         <>
             <Header title="Loans" />
@@ -60,7 +63,7 @@ const Loans = () => {
                         </button>
 
                         <button
-                            onClick={() => dispatch({ type: ACTIONS.REQUEST_LOAN_MODAL, payload: true })}
+                            onClick={() => dispatch({ type: ACTIONS.REPAY_LOAN_MODAL, payload: true })}
                             className="bg-white text-primary-500 border border-primary-500 rounded-3xl flex items-center justify-center px-6 py-3 text-sm">Repay Loan
                         </button>
                     </div>
@@ -117,7 +120,7 @@ const Loans = () => {
                                             <td className="py-5 px-6 text-center">₦{formatNumbers(loan.repaymentAmount)}</td>
                                             <td className="py-5 px-6 text-center">₦{formatNumbers(loan.interest)}</td>
                                             <td className={`py-5 px-6 text-center`}>
-                                                <span className={`py-1 px-4 rounded-lg ${loan.status === "active"
+                                                <span className={`block py-1 w-[80px] rounded-md text-xs ${loan.status === "active"
                                                     ? "bg-green-200"
                                                     : "bg-red-200"
                                                     }`}>
@@ -137,6 +140,7 @@ const Loans = () => {
 
                 </div>
                 {state?.requestLoanModal && <RequestLoanModal />}
+                {state?.repayLoanModal && <RepayLoanModal />}
             </section>
         </>
     )

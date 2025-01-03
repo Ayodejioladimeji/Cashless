@@ -25,6 +25,7 @@ export const RequestLoanModal = () => {
     const [errors, setErrors] = useState({ amount: "", tenure: "", purpose:"" });
 
 
+    // validate form
     const validateForm = () => {
         const newErrors = { amount: "", tenure: "", purpose: "" };
         if (!amount) {
@@ -59,6 +60,7 @@ export const RequestLoanModal = () => {
 
             const res = await PostRequest("/loan", payload, token)
             if(res?.status === 200 || res?.status === 201){
+                dispatch({ type: ACTIONS.CALLBACK, payload: !state?.callback })
                 cogoToast.success(res?.data?.message)
                 dispatch({type:ACTIONS.REQUEST_LOAN_MODAL, payload:false})
             }
@@ -101,7 +103,7 @@ export const RequestLoanModal = () => {
                     </div>
 
                     <p className="text-[#586283] text-sm">
-                        Please note that when you repay your loan before due date, you will still need to pay all the interest on the loan <span className="text-primary-500">(interest:4%)</span>
+                        Please note that when you repay your loan before due date, you will still need to pay all the interest on the loan <span className="text-primary-500">(interest:5% monthly)</span>
                     </p>
                 </div>
 

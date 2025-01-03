@@ -2,65 +2,47 @@
 import React, { useRef } from "react";
 import { useState, useContext } from "react";
 import Loading from "@/components/ui/loading";
-import {
-    Select,
-    SelectContent,
-    SelectItem,
-    SelectTrigger,
-    SelectValue,
-} from "@/components/ui/select";
 import { PostRequest } from "@/utils/request";
 import { DataContext } from "@/store/GlobalState";
 import { ACTIONS } from "@/store/Actions";
 import { formatMoney, removeNum } from "@/utils/utils";
 import cogoToast from '@successtar/cogo-toast';
 
-export const RequestLoanModal = () => {
+export const RepayLoanModal = () => {
     const [amount, setAmount] = useState<string>("")
-    const [tenure, setTenure] = useState<string>("")
-    const [purpose, setPurpose] = useState<string>("")
     const [requestloading, setRequestloading] = useState<boolean>(false);
     const inputRef = useRef<any>(null);
-    const {state, dispatch} = useContext(DataContext)
-    const [errors, setErrors] = useState({ amount: "", tenure: "", purpose:"" });
+    const { state, dispatch } = useContext(DataContext)
+    const [errors, setErrors] = useState({ amount: "" });
 
-
+    // validate form
     const validateForm = () => {
-        const newErrors = { amount: "", tenure: "", purpose: "" };
+        const newErrors = { amount: "", };
         if (!amount) {
             newErrors.amount = "Amount is required";
         }
 
-        if (!tenure) {
-            newErrors.tenure = "Tenure is required";
-        }
-
-        if (!purpose) {
-            newErrors.purpose = "Purpose is required";
-        }
-
         setErrors(newErrors);
-        return !newErrors.amount && !newErrors.tenure && !newErrors.purpose;
+        return !newErrors.amount;
     };
 
-
+    // handle submit
     const handleSubmit = async (e: any) => {
         e.preventDefault();
         const token = localStorage.getItem("token") || ""
 
         const payload = {
-            loanAmount: Number(removeNum(amount)),
-            tenure,
-            purpose
+            repaymentAmount: Number(removeNum(amount)),
         }
 
-        if(validateForm()){
+        if (validateForm()) {
             setRequestloading(true)
 
-            const res = await PostRequest("/loan", payload, token)
-            if(res?.status === 200 || res?.status === 201){
+            const res = await PostRequest("/loan/repay", payload, token)
+            if (res?.status === 200 || res?.status === 201) {
+                dispatch({ type: ACTIONS.CALLBACK, payload: !state?.callback })
                 cogoToast.success(res?.data?.message)
-                dispatch({type:ACTIONS.REQUEST_LOAN_MODAL, payload:false})
+                dispatch({ type: ACTIONS.REPAY_LOAN_MODAL, payload: false })
             }
 
             setRequestloading(false)
@@ -74,16 +56,16 @@ export const RequestLoanModal = () => {
         <div className="w-screen z-50 h-screen fixed top-0 right-0 left-0 flex items-center justify-center .">
             <div
                 className="w-full h-full absolute bg-black opacity-20"
-                onClick={() => dispatch({ type: ACTIONS.REQUEST_LOAN_MODAL, payload: false })}
+                onClick={() => dispatch({ type: ACTIONS.REPAY_LOAN_MODAL, payload: false })}
             ></div>
             <div className="bg-white w-[382px] lg:w-[450px] flex flex-col rounded-lg z-10 p-5 gap-6">
                 <div>
                     <div className="w-full flex items-center justify-between mb-5">
                         <h1 className="text-[#1D2939] lg:font-bold text-xl">
-                            Request Loan
+                            Loan Payment
                         </h1>
                         <button
-                        onClick={() => dispatch({type:ACTIONS.REQUEST_LOAN_MODAL, payload:false})}
+                            onClick={() => dispatch({ type: ACTIONS.REPAY_LOAN_MODAL, payload: false })}
                         >
                             <svg
                                 xmlns="http://www.w3.org/2000/svg"
@@ -101,7 +83,7 @@ export const RequestLoanModal = () => {
                     </div>
 
                     <p className="text-[#586283] text-sm">
-                        Please note that when you repay your loan before due date, you will still need to pay all the interest on the loan <span className="text-primary-500">(interest:4%)</span>
+                        Please note that when you repay your loan before due date, you will still need to pay all the interest on the loan <span className="text-primary-500">(interest:5% monthly)</span>
                     </p>
                 </div>
 
@@ -116,11 +98,10 @@ export const RequestLoanModal = () => {
                             id="channel-name"
                             value={amount}
                             placeholder="Enter loan amount"
-                            onChange={(e) =>
-                            {
+                            onChange={(e) => {
                                 setAmount(formatMoney(e.target.value)),
-                                setErrors((prevErrors) => ({ ...prevErrors, amount: "" }));
-                               }
+                                    setErrors((prevErrors) => ({ ...prevErrors, amount: "" }));
+                            }
                             }
                             className="w-full py-3 text-sm text-[#747474] px-4 border rounded-md border-[#D0D0FD] outline-none focus:border-primary-500"
                             ref={inputRef}
@@ -129,68 +110,6 @@ export const RequestLoanModal = () => {
                         {errors.amount && (
                             <small className="text-[12px] text-[#F81404]">
                                 {errors.amount}
-                            </small>
-                        )}
-                    </div>
-
-                    <div className="mb-2">
-                        <label htmlFor="channel-name" className="block text-sm mb-1 font-semibold">
-                            Tenure
-                        </label>
-                        <Select onValueChange={(value) => { setTenure(value), setErrors((prevErrors) => ({ ...prevErrors, tenure: "" })); }} value={tenure}>
-                            <SelectTrigger className="w-full h-[45px] p-3 text-primary border border-gray-300 rounded-md bg-white focus:outline-none focus:ring-[1px] focus:ring-primary-500 focus:border-primary-300">
-                                <SelectValue placeholder="Select tenure" />
-                            </SelectTrigger>
-
-                            <SelectContent className="bg-white">
-                                <SelectItem value="1">1month</SelectItem>
-                                <SelectItem value="2">2months</SelectItem>
-                                <SelectItem value="3">3months</SelectItem>
-                                <SelectItem value="4">4months</SelectItem>
-                                <SelectItem value="5">5months</SelectItem>
-                                <SelectItem value="6">6months</SelectItem>
-                                <SelectItem value="7">7months</SelectItem>
-                                <SelectItem value="8">8months</SelectItem>
-                                <SelectItem value="9">9months</SelectItem>
-                                <SelectItem value="10">10months</SelectItem>
-                                <SelectItem value="11">11months</SelectItem>
-                                <SelectItem value="12">12months</SelectItem>
-                            </SelectContent>
-                        </Select>
-
-                        {errors.tenure && (
-                            <small className="text-[12px] text-[#F81404]">
-                                {errors.tenure}
-                            </small>
-                        )}
-                    </div>
-
-                    <div className="mb-2">
-                        <label htmlFor="channel-name" className="block text-sm mb-1 font-semibold">
-                            Loan Purpose
-                        </label>
-                        
-                        <Select onValueChange={(value) => { setPurpose(value), setErrors((prevErrors) => ({ ...prevErrors, purpose: "" })); }} value={purpose}>
-                            <SelectTrigger className="w-full h-[45px] p-3 text-primary border border-gray-300 rounded-md bg-white focus:outline-none focus:ring-1 focus:ring-primary-500 focus:border-primary-300">
-                                <SelectValue placeholder="Select loan purpose" />
-                            </SelectTrigger>
-
-                            <SelectContent className="bg-white">
-                                <SelectItem value="personal">Personal Loan</SelectItem>
-                                <SelectItem value="business">Business Loan</SelectItem>
-                                <SelectItem value="home">Home Renovation</SelectItem>
-                                <SelectItem value="vehicle">Vehicle Purchase</SelectItem>
-                                <SelectItem value="education">Education Loan</SelectItem>
-                                <SelectItem value="medical">Medical Expenses</SelectItem>
-                                <SelectItem value="wedding">Wedding Expenses</SelectItem>
-                                <SelectItem value="travel">Travel or Vacation</SelectItem>
-                                <SelectItem value="debt">Debt Consolidation</SelectItem>
-                            </SelectContent>
-                        </Select>
-
-                        {errors.purpose && (
-                            <small className="text-[12px] text-[#F81404]">
-                                {errors.purpose}
                             </small>
                         )}
                     </div>

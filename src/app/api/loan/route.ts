@@ -118,7 +118,7 @@ export async function GET(req: NextRequest) {
     }
 
     // Fetch loans for the authenticated user
-    const loans = await Loan.find({ user: user_auth.id });
+    const loans = await Loan.find({ user: user_auth.id }).sort("-createdAt");
 
     // If no loans are found
     if (loans.length === 0) {

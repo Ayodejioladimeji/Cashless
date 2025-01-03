@@ -9,6 +9,11 @@ const reducers = (state: any, action: any) => {
         ...state,
         requestLoanModal: payload,
       };
+    case ACTIONS.REPAY_LOAN_MODAL:
+      return {
+        ...state,
+        repayLoanModal: payload,
+      };
     case ACTIONS.CALLBACK:
       return {
         ...state,
