@@ -28,7 +28,7 @@ const Loans = () => {
     const [visible, setVisible] = useState(false)
     const [showlimit, setShowlimit] = useState(false)
     const { state, dispatch } = useContext(DataContext)
-    const [loans, setLoans] = useState<Loan[]>([]) 
+    const [loans, setLoans] = useState<Loan[]>([])
     const [loading, setLoading] = useState(true)
     const [activeLoan, setActiveLoan] = useState<Loan | null>(null)
     // get loans
@@ -40,7 +40,7 @@ const Loans = () => {
                     setLoans(res?.data)
 
                     // get active loan
-                    const active_loan = res?.data?.find((item:any) => item?.status === "active")
+                    const active_loan = res?.data?.find((item: any) => item?.status === "active")
                     setActiveLoan(active_loan)
                 }
                 setLoading(false)
@@ -51,14 +51,14 @@ const Loans = () => {
 
 
     // 
-    
+
     return (
         <>
             <Header title="Loans" />
             <section className="px-3 py-5 md:p-5">
                 <div className="flex flex-col sm:flex-row sm:items-center justify-between">
                     <div>
-                        <p className="text-base text-primary-500 font-medium">Loan Amount ₦{activeLoan?.loanAmount} Due on {moment(activeLoan?.repaymentDate).format("ll")}</p>
+                        {!activeLoan ? <p className="text-base text-primary-500 font-medium">You have no active loan</p> : <p className="text-base text-primary-500 font-medium">Loan Amount ₦{activeLoan?.loanAmount} Due on {moment(activeLoan?.repaymentDate).format("ll")}</p>}
                     </div>
 
                     <div className="flex items-center gap-3 my-5 sm:my-0">
@@ -115,7 +115,7 @@ const Loans = () => {
                                     </tr>
                                 </thead>
                                 <tbody className="text-gray-600 text-sm font-light">
-                                    {loans.map((loan, index:number) => (
+                                    {loans.map((loan, index: number) => (
                                         <tr
                                             key={index}
                                             className="border-b border-gray-200 hover:bg-gray-100"
