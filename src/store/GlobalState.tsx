@@ -18,6 +18,7 @@ export const DataProvider = ({ children }: DataProviderProps) => {
     callback: false,
     openSidebar:false,
     addMoneyModal:false,
+    withdrawMoneyModal:false,
     user:{},
     token:""
   };

@@ -1,6 +1,7 @@
 "use client"
 import { AddMoneyModal } from "@/components/layout/add-money-modal";
 import Header from "@/components/layout/header"
+import { WithdrawMoneyModal } from "@/components/layout/withdraw";
 import Loading from "@/components/ui/loading";
 import { ACTIONS } from "@/store/Actions";
 import { DataContext } from "@/store/GlobalState";
@@ -70,7 +71,7 @@ const Overview = () => {
                     <div className="flex items-center gap-3">
                         <button onClick={() => dispatch({ type: ACTIONS.ADD_MONEY_MODAL, payload: true })} className="bg-primary-500 text-white rounded-3xl flex items-center justify-center px-6 py-3 text-sm border border-transparent hover:bg-white hover:text-primary-500 hover:border-primary-500 transition duration-200">Add Money</button>
                         <button
-                            // onClick={() => dispatch({ type: ACTIONS.ADD_MONEY_MODAL, payload: true })}
+                            onClick={() => dispatch({ type: ACTIONS.WITHDRAW_MONEY_MODAL, payload: true })}
                             className="bg-white text-primary-500 border border-primary-500 rounded-3xl flex items-center justify-center px-6 py-3 text-sm hover:bg-primary-500 hover:text-white hover:border-transparent transition duration-200">Withdraw
                         </button>
                     </div>
@@ -106,7 +107,7 @@ const Overview = () => {
                                 </tr>
                             </thead>
                             <tbody className="text-gray-600 text-sm font-light">
-                                {recentTransactions?.map((transaction, index) => (
+                                {recentTransactions?.slice(0, 10)?.map((transaction, index) => (
                                     <tr
                                         key={transaction._id}
                                         className="border-b border-gray-200 hover:bg-gray-100"
@@ -140,6 +141,7 @@ const Overview = () => {
             </section>
 
             {state?.addMoneyModal && <AddMoneyModal />}
+            {state?.withdrawMoneyModal && <WithdrawMoneyModal  />}
         </>
     )
 }

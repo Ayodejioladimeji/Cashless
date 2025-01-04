@@ -29,6 +29,11 @@ const reducers = (state: any, action: any) => {
         ...state,
         addMoneyModal: payload,
       };
+    case ACTIONS.WITHDRAW_MONEY_MODAL:
+      return {
+        ...state,
+        withdrawMoneyModal: payload,
+      };
     case ACTIONS.USER:
       return {
         ...state,
