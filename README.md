@@ -5,7 +5,7 @@
 
 If you find this project useful or interesting, please give it a star on GitHub! Your support is greatly appreciated.
 
-![Cashless Screenshot](/src/assets/images/screenshot.png)
+![Cashless Screenshot](https://res.cloudinary.com/devsource/image/upload/v1735986158/screenshot_eaymji.png)
 
 ## Overview
 
@@ -100,7 +100,7 @@ Follow these steps to get the project up and running on your local machine.
     ```
 
 2. **Example Component Tested:**
-   ![Cashless Screenshot](/src/assets/images/coverage.png)
+   ![Cashless Screenshot](https://res.cloudinary.com/devsource/image/upload/v1735986156/coverage_upmt8x.png)
 
 ## Live Demo
 
