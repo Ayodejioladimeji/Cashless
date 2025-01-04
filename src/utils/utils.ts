@@ -54,3 +54,30 @@ export const generateTransactionReference = (): string => {
 
     return `${prefix}-${timestamp}`;
 }
+
+export const filterData = (data: any[], inputData: string) => {
+    const searchTerm = inputData.toLowerCase();
+
+    return data?.filter((item) => {
+        return (
+            item?.type?.toLowerCase().includes(searchTerm) ||
+            item?.recipient?.toLowerCase().includes(searchTerm) ||
+            item?.amount?.toLowerCase().includes(searchTerm) ||
+            item?.reference?.toLowerCase().includes(searchTerm)
+        );
+    });
+};
+
+
+// Order sorted
+export const sortData = (data: any, values: string) => {
+    return data?.filter((item: any) => {
+        if (values === "credit") {
+            return item.type === "credit";
+        } else if (values === "debit") {
+            return item.type === "debit";
+        } else {
+            return item;
+        }
+    });
+};
