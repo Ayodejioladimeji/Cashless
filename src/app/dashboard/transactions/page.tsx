@@ -1,6 +1,6 @@
 "use client"
 import Header from "@/components/layout/header"
-import React, { useState } from "react"
+import React, { useContext, useEffect, useState } from "react"
 import {
     Select,
     SelectContent,
@@ -8,109 +8,37 @@ import {
     SelectTrigger,
     SelectValue,
 } from "@/components/ui/select";
+import { DataContext } from "@/store/GlobalState";
+import { GetRequest } from "@/utils/request";
+import Loading from "@/components/ui/loading";
 
-const transactions = [
-    {
-        id: 1,
-        recipient: "John Doe",
-        amount: "500",
-        transactionType: "credit",
-        transactionNo: "TXN12345",
-        transactionDate: "2025-01-02",
-    },
-    {
-        id: 2,
-        recipient: "Jane Smith",
-        amount: "300",
-        transactionType: "debit",
-        transactionNo: "TXN12346",
-        transactionDate: "2025-01-01",
-    },
-    {
-        id: 3,
-        recipient: "Alice Johnson",
-        amount: "700",
-        transactionType: "credit",
-        transactionNo: "TXN12347",
-        transactionDate: "2025-01-01",
-    },
-    {
-        id: 4,
-        recipient: "John Doe",
-        amount: "500",
-        transactionType: "credit",
-        transactionNo: "TXN12345",
-        transactionDate: "2025-01-02",
-    },
-    {
-        id: 5,
-        recipient: "Jane Smith",
-        amount: "300",
-        transactionType: "debit",
-        transactionNo: "TXN12346",
-        transactionDate: "2025-01-01",
-    },
-    {
-        id: 6,
-        recipient: "Alice Johnson",
-        amount: "700",
-        transactionType: "credit",
-        transactionNo: "TXN12347",
-        transactionDate: "2025-01-01",
-    },
-    {
-        id: 7,
-        recipient: "John Doe",
-        amount: "500",
-        transactionType: "credit",
-        transactionNo: "TXN12345",
-        transactionDate: "2025-01-02",
-    },
-    {
-        id: 8,
-        recipient: "Jane Smith",
-        amount: "300",
-        transactionType: "debit",
-        transactionNo: "TXN12346",
-        transactionDate: "2025-01-01",
-    },
-    {
-        id: 9,
-        recipient: "Alice Johnson",
-        amount: "700",
-        transactionType: "credit",
-        transactionNo: "TXN12347",
-        transactionDate: "2025-01-01",
-    },
-    {
-        id: 10,
-        recipient: "John Doe",
-        amount: "500",
-        transactionType: "credit",
-        transactionNo: "TXN12345",
-        transactionDate: "2025-01-02",
-    },
-    {
-        id: 11,
-        recipient: "Jane Smith",
-        amount: "300",
-        transactionType: "debit",
-        transactionNo: "TXN12346",
-        transactionDate: "2025-01-01",
-    },
-    {
-        id: 12,
-        recipient: "Alice Johnson",
-        amount: "700",
-        transactionType: "credit",
-        transactionNo: "TXN12347",
-        transactionDate: "2025-01-01",
-    },
-];
+interface TransactionProps {
+    _id: string,
+    amount: number,
+    type: string,
+    recipient: string,
+    reference: string,
+    createdAt: string
+}
 
 const Transactions = () => {
-    const [visible, setVisible] = useState(false)
     const [transactionType, setTransactionType] = useState("all")
+    const [transactions, setTransactions] = useState<TransactionProps[]>([])
+    const {state, dispatch} = useContext(DataContext)
+    const [loading, setLoading] = useState(true)
+
+        useEffect(() => {
+            if (state?.token) {
+                const getTransactions = async () => {
+                    const res = await GetRequest("/transaction", state?.token)
+                    if (res?.status === 200 || res?.status === 201) {
+                        setTransactions(res?.data)
+                    }
+                    setLoading(false)
+                }
+                getTransactions()
+            }
+        }, [state?.token, state?.callback])
 
     // 
 
@@ -140,6 +68,10 @@ const Transactions = () => {
                     <h2 className="mb-5 font-semibold text-lg">All Transactions</h2>
 
                     <div className="overflow-x-auto">
+                        {loading ? <div className="flex justify-center my-20">
+                            <Loading width="40" height="40" color="#7141F8" />
+                        </div>
+                        :
                         <table className="min-w-full bg-white border border-gray-200 rounded-lg">
                             <thead>
                                 <tr className="bg-gray-100 text-gray-600 uppercase text-sm leading-normal">
@@ -152,31 +84,35 @@ const Transactions = () => {
                                 </tr>
                             </thead>
                             <tbody className="text-gray-600 text-sm font-light">
-                                {transactions.map((transaction) => (
+                                {transactions.map((transaction, index) => (
                                     <tr
-                                        key={transaction.id}
+                                        key={transaction._id}
                                         className="border-b border-gray-200 hover:bg-gray-100"
                                     >
-                                        <td className="py-5 px-6 text-center">{transaction.id}</td>
+                                        <td className="py-5 px-6 text-center">{index + 1}</td>
                                         <td className="py-5 px-6">{transaction.recipient}</td>
                                         <td className="py-5 px-6 text-center">₦ {transaction.amount}</td>
                                         <td
                                             className={`py-5 px-6 text-center`}
                                         >
-                                            <span className={`py-1 px-4 rounded-lg ${transaction.transactionType === "credit"
+                                            <span className={`py-1 px-4 rounded-lg ${transaction.type === "credit"
                                                 ? "bg-green-200"
                                                 : "bg-red-200"
                                                 }`}>
-                                                {transaction.transactionType}
+                                                {transaction.type}
                                             </span>
 
                                         </td>
-                                        <td className="py-5 px-6 text-center">{transaction.transactionNo}</td>
-                                        <td className="py-5 px-6 text-center">{transaction.transactionDate}</td>
+                                        <td className="py-5 px-6 text-center">{transaction.reference}</td>
+                                        <td className="py-5 px-6 text-center">{transaction.createdAt}</td>
                                     </tr>
                                 ))}
                             </tbody>
                         </table>
+}
+
+                        {!loading && transactions?.length === 0 && <p className="text-gray-500 text-center mt-20">No transactions found</p>}
+
                     </div>
                 </div>
             </section>

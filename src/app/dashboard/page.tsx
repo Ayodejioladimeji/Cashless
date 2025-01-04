@@ -12,13 +12,13 @@ import moment from "moment";
 import React, { useContext, useEffect, useState } from "react"
 
 
-interface TransactionProps{
-    _id:string,
-    amount:number,
-    type:string,
-    recipient:string,
-    reference:string,
-    createdAt:string
+interface TransactionProps {
+    _id: string,
+    amount: number,
+    type: string,
+    recipient: string,
+    reference: string,
+    createdAt: string
 }
 
 const Overview = () => {
@@ -30,7 +30,7 @@ const Overview = () => {
 
     // get user balance
     useEffect(() => {
-        if(state?.token){
+        if (state?.token) {
             const getBalance = async () => {
                 const res = await GetRequest("/balance", state?.token)
                 if (res?.status === 200 || res?.status === 201) {
@@ -43,7 +43,7 @@ const Overview = () => {
 
     // get recent transactions
     useEffect(() => {
-        if(state?.token){
+        if (state?.token) {
             const getTransactions = async () => {
                 const res = await GetRequest("/transaction", state?.token)
                 if (res?.status === 200 || res?.status === 201) {
@@ -94,44 +94,44 @@ const Overview = () => {
                         {loading ? <div className="flex justify-center my-20">
                             <Loading width="40" height="40" color="#7141F8" />
                         </div>
-                        :
-                        <table className="w-[900px] lg:min-w-full bg-white border border-gray-200 rounded-lg">
-                            <thead>
-                                <tr className="bg-gray-100 text-gray-600 uppercase text-xs leading-normal">
-                                    <th className="py-5 px-6 text-center">ID</th>
-                                    <th className="py-5 px-6 text-left">Recipient</th>
-                                    <th className="py-5 px-6 text-center">Amount</th>
-                                    <th className="py-5 px-6 text-center">Transaction Type</th>
-                                    <th className="py-5 px-6 text-center">Transaction No</th>
-                                    <th className="py-5 px-6 text-center">Transaction Date</th>
-                                </tr>
-                            </thead>
-                            <tbody className="text-gray-600 text-sm font-light">
-                                {recentTransactions?.slice(0, 10)?.map((transaction, index) => (
-                                    <tr
-                                        key={transaction._id}
-                                        className="border-b border-gray-200 hover:bg-gray-100"
-                                    >
-                                        <td className="py-5 px-6 text-center">{index + 1}</td>
-                                        <td className="py-5 px-6">{transaction.recipient}</td>
-                                        <td className="py-5 px-6 text-center">₦{formatNumbers(transaction.amount)}</td>
-                                        <td className="py-5 px-6 text-center">
-                                            <span
-                                                className={`py-1 px-4 rounded-lg ${transaction.type === "credit"
-                                                    ? "bg-green-200"
-                                                    : "bg-red-200"
-                                                    }`}
-                                            >
-                                                {transaction.type}
-                                            </span>
-                                        </td>
-                                        <td className="py-5 px-6 text-center">{transaction.reference}</td>
-                                        <td className="py-5 px-6 text-center">{moment(transaction.createdAt).format("ll")}</td>
+                            :
+                            <table className="w-[900px] lg:min-w-full bg-white border border-gray-200 rounded-lg">
+                                <thead>
+                                    <tr className="bg-gray-100 text-gray-600 uppercase text-xs leading-normal">
+                                        <th className="py-5 px-6 text-center">ID</th>
+                                        <th className="py-5 px-6 text-left">Recipient</th>
+                                        <th className="py-5 px-6 text-center">Amount</th>
+                                        <th className="py-5 px-6 text-center">Transaction Type</th>
+                                        <th className="py-5 px-6 text-center">Transaction No</th>
+                                        <th className="py-5 px-6 text-center">Transaction Date</th>
                                     </tr>
-                                ))}
-                            </tbody>
-                        </table>
-}
+                                </thead>
+                                <tbody className="text-gray-600 text-sm font-light">
+                                    {recentTransactions?.slice(0, 10)?.map((transaction, index) => (
+                                        <tr
+                                            key={transaction._id}
+                                            className="border-b border-gray-200 hover:bg-gray-100"
+                                        >
+                                            <td className="py-5 px-6 text-center">{index + 1}</td>
+                                            <td className="py-5 px-6">{transaction.recipient}</td>
+                                            <td className="py-5 px-6 text-center">₦{formatNumbers(transaction.amount)}</td>
+                                            <td className="py-5 px-6 text-center">
+                                                <span
+                                                    className={`py-1 px-4 rounded-lg ${transaction.type === "credit"
+                                                        ? "bg-green-200"
+                                                        : "bg-red-200"
+                                                        }`}
+                                                >
+                                                    {transaction.type}
+                                                </span>
+                                            </td>
+                                            <td className="py-5 px-6 text-center">{transaction.reference}</td>
+                                            <td className="py-5 px-6 text-center">{moment(transaction.createdAt).format("ll")}</td>
+                                        </tr>
+                                    ))}
+                                </tbody>
+                            </table>
+                        }
 
                         {!loading && recentTransactions?.length === 0 && <p className="text-gray-500 text-center mt-20">No recent transactions</p>}
 
@@ -141,7 +141,7 @@ const Overview = () => {
             </section>
 
             {state?.addMoneyModal && <AddMoneyModal />}
-            {state?.withdrawMoneyModal && <WithdrawMoneyModal  />}
+            {state?.withdrawMoneyModal && <WithdrawMoneyModal />}
         </>
     )
 }
