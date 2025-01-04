@@ -68,7 +68,7 @@ const Overview = () => {
                         <p className="text-lg font-medium">{state?.user?.fullname}</p>
                     </div>
 
-                    <div className="flex items-center gap-3">
+                    <div className="flex items-center gap-3 mt-5 md:mt-0">
                         <button onClick={() => dispatch({ type: ACTIONS.ADD_MONEY_MODAL, payload: true })} className="bg-primary-500 text-white rounded-3xl flex items-center justify-center px-6 py-3 text-sm border border-transparent hover:bg-white hover:text-primary-500 hover:border-primary-500 transition duration-200">Add Money</button>
                         <button
                             onClick={() => dispatch({ type: ACTIONS.WITHDRAW_MONEY_MODAL, payload: true })}
