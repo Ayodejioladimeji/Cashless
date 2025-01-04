@@ -1,10 +1,6 @@
 import mongoose from "mongoose";
 
-const URI = process.env.NEXT_PUBLIC_MONGO_URI;
-
-if (!URI) {
-  throw new Error("Environment variable NEXT_PUBLIC_MONGO_URI is not defined.");
-}
+const URI: any = process.env.NEXT_PUBLIC_MONGO_URI as string;
 
 const connectDB = async () => {
   try {
