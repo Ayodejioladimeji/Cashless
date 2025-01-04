@@ -93,7 +93,7 @@ function Signup() {
 
     return (
         <>
-            <main className="w-full min-h-screen flex flex-col">
+            <main className="w-full min-h-screen flex flex-col px-3">
                 <section className="w-full flex flex-col max-w-lg mx-auto items-start justify-start pt-[20px] md:pt-0">
 
                     <div className="w-full flex flex-col justify-center mt-[60px] md:mt-[80px] items-center gap-[8px] mb-[32px]">
