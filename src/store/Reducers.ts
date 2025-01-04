@@ -1,4 +1,3 @@
-import { AddMoneyModal } from "@/components/layout/add-money-modal";
 import { ACTIONS } from "./Actions";
 
 const reducers = (state: any, action: any) => {

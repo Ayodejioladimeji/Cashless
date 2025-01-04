@@ -11,7 +11,7 @@ import cogoToast from "@successtar/cogo-toast";
 export const WithdrawMoneyModal = () => {
     const [amount, setAmount] = useState<string>("")
     const [requestloading, setRequestloading] = useState<boolean>(false);
-    const inputRef = useRef<any>(null);
+    const inputRef = useRef<HTMLInputElement | null>(null);
     const {state, dispatch} = useContext(DataContext)
     const [errors, setErrors] = useState({ amount: ""});
 
@@ -27,7 +27,7 @@ export const WithdrawMoneyModal = () => {
     };
 
 
-    const handleSubmit = async (e: any) => {
+    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
 
         const payload = {
@@ -114,10 +114,8 @@ export const WithdrawMoneyModal = () => {
                         )}
                     </div>
 
-                </form>
-
                 <div className="w-full flex justify-end">
-                    <div onClick={handleSubmit}>
+               
                         <button
                             type="submit"
                             className="w-[140px] h-[40px] flex items-center justify-center rounded-md bg-[#7141F8] hover:bg-[#8760f8] text-white"
@@ -131,8 +129,10 @@ export const WithdrawMoneyModal = () => {
                                 <span>Withdraw</span>
                             )}
                         </button>
-                    </div>
+             
                 </div>
+                </form>
+
             </div>
         </div>
     );

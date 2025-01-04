@@ -19,7 +19,7 @@ export default function RootLayout({
 
         dispatch({type:ACTIONS.USER, payload:user})
         dispatch({type:ACTIONS.TOKEN, payload:token})
-    }, [])
+    }, [dispatch])
 
     // 
 

@@ -29,5 +29,5 @@ const transactionSchema = new mongoose.Schema(
     }
 );
 
-let Dataset = mongoose.models.transaction || mongoose.model("transaction", transactionSchema);
+const Dataset = mongoose.models.transaction || mongoose.model("transaction", transactionSchema);
 export default Dataset;

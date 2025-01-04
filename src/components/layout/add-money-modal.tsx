@@ -12,13 +12,13 @@ export const AddMoneyModal = () => {
     const [amount, setAmount] = useState<string>("")
     const [recipient, setRecipient] = useState<string>("")
     const [requestloading, setRequestloading] = useState<boolean>(false);
-    const inputRef = useRef<any>(null);
-    const {state, dispatch} = useContext(DataContext)
-    const [errors, setErrors] = useState({ amount: "",recipient: ""});
+    const inputRef = useRef<HTMLInputElement | null>(null);
+    const { state, dispatch } = useContext(DataContext)
+    const [errors, setErrors] = useState({ amount: "", recipient: "" });
 
 
     const validateForm = () => {
-        const newErrors = { amount: "",recipient: "",};
+        const newErrors = { amount: "", recipient: "" };
         if (!amount) {
             newErrors.amount = "Amount is required";
         }
@@ -32,21 +32,22 @@ export const AddMoneyModal = () => {
     };
 
 
-    const handleSubmit = async (e: any) => {
+
+    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
 
         const payload = {
-            amount : Number(removeNum(amount)), 
+            amount: Number(removeNum(amount)),
             recipient
         }
 
-        if(validateForm()){
+        if (validateForm()) {
             setRequestloading(true)
 
             const res = await PostRequest("/transaction/credit", payload, state?.token)
-            if(res?.status === 200 || res?.status === 201){
-                dispatch({type:ACTIONS.CALLBACK, payload:!state?.callback})
-                dispatch({type:ACTIONS.ADD_MONEY_MODAL, payload:false})
+            if (res?.status === 200 || res?.status === 201) {
+                dispatch({ type: ACTIONS.CALLBACK, payload: !state?.callback })
+                dispatch({ type: ACTIONS.ADD_MONEY_MODAL, payload: false })
                 cogoToast.success(res?.data?.message)
             }
 
@@ -70,7 +71,7 @@ export const AddMoneyModal = () => {
                             Add Money
                         </h1>
                         <button
-                        onClick={() => dispatch({type:ACTIONS.ADD_MONEY_MODAL, payload:false})}
+                            onClick={() => dispatch({ type: ACTIONS.ADD_MONEY_MODAL, payload: false })}
                         >
                             <svg
                                 xmlns="http://www.w3.org/2000/svg"
@@ -103,11 +104,10 @@ export const AddMoneyModal = () => {
                             id="amount"
                             value={amount}
                             placeholder="Enter loan amount"
-                            onChange={(e) =>
-                            {
+                            onChange={(e) => {
                                 setAmount(formatMoney(e.target.value)),
-                                setErrors((prevErrors) => ({ ...prevErrors, amount: "" }));
-                               }
+                                    setErrors((prevErrors) => ({ ...prevErrors, amount: "" }));
+                            }
                             }
                             className="w-full py-3 text-sm text-[#747474] px-4 border rounded-md border-[#D0D0FD] outline-none focus:border-primary-500"
                             ref={inputRef}
@@ -124,7 +124,7 @@ export const AddMoneyModal = () => {
                         <label htmlFor="recipient" className="block text-sm mb-1 font-semibold">
                             Recipient
                         </label>
-                        
+
                         <input
                             type="text"
                             name="recipient"
@@ -133,7 +133,7 @@ export const AddMoneyModal = () => {
                             placeholder="Name of the sender"
                             onChange={(e) => {
                                 setRecipient(e.target.value),
-                                setErrors((prevErrors) => ({ ...prevErrors, recipient: "" }));
+                                    setErrors((prevErrors) => ({ ...prevErrors, recipient: "" }));
                             }
                             }
                             className="w-full py-3 text-sm text-[#747474] px-4 border rounded-md border-[#D0D0FD] outline-none focus:border-primary-500"
@@ -146,25 +146,24 @@ export const AddMoneyModal = () => {
                             </small>
                         )}
                     </div>
-                </form>
 
-                <div className="w-full flex justify-end">
-                    <div onClick={handleSubmit}>
+                    <div className="w-full flex justify-end">
                         <button
                             type="submit"
                             className="w-[140px] h-[40px] flex items-center justify-center rounded-md bg-[#7141F8] hover:bg-[#8760f8] text-white"
                         >
                             {requestloading ? (
                                 <span className="flex items-center gap-x-2">
-                                    <span className="animate-pulse">Requesting...</span>{" "}
+                                    <span className="animate-pulse">Loading...</span>{" "}
                                     <Loading width="20" height="20" />
                                 </span>
                             ) : (
-                                <span>Request</span>
+                                <span>Save</span>
                             )}
                         </button>
                     </div>
-                </div>
+                </form>
+
             </div>
         </div>
     );

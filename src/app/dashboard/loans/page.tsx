@@ -11,7 +11,6 @@ import { EyeIcon, EyeOffIcon } from "lucide-react"
 import moment from "moment";
 import React, { useContext, useEffect, useState } from "react"
 
-// Define the Loan type
 interface Loan {
     _id: number;
     bankName: string;
@@ -31,6 +30,7 @@ const Loans = () => {
     const [loans, setLoans] = useState<Loan[]>([])
     const [loading, setLoading] = useState(true)
     const [activeLoan, setActiveLoan] = useState<Loan | null>(null)
+
     // get loans
     useEffect(() => {
         if (state?.token) {
@@ -40,15 +40,14 @@ const Loans = () => {
                     setLoans(res?.data)
 
                     // get active loan
-                    const active_loan = res?.data?.find((item: any) => item?.status === "active")
-                    setActiveLoan(active_loan)
+                    const active_loan = res?.data?.find((item: Loan) => item?.status === "active")
+                    setActiveLoan(active_loan || null)
                 }
                 setLoading(false)
             }
             getLoans()
         }
     }, [state?.token, state?.callback])
-
 
     // 
 
@@ -108,9 +107,9 @@ const Loans = () => {
                                         <th className="py-5 px-6 text-center">ID</th>
                                         <th className="py-5 px-6 text-center">Amount</th>
                                         <th className="py-5 px-6 text-center">Repayment Amount</th>
-                                        <th className="py-5 px-6 text-center">interest</th>
+                                        <th className="py-5 px-6 text-center">Interest</th>
                                         <th className="py-5 px-6 text-center">Status</th>
-                                        <th className="py-5 px-6 text-center">Disburstment Date</th>
+                                        <th className="py-5 px-6 text-center">Disbursement Date</th>
                                         <th className="py-5 px-6 text-center">Repayment Date</th>
                                     </tr>
                                 </thead>
@@ -151,4 +150,4 @@ const Loans = () => {
     )
 }
 
-export default Loans
+export default Loans;

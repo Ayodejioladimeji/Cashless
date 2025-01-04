@@ -15,5 +15,5 @@ const walletSchema = new mongoose.Schema(
     }
 );
 
-let Dataset = mongoose.models.wallet || mongoose.model("wallet", walletSchema);
+const Dataset = mongoose.models.wallet || mongoose.model("wallet", walletSchema);
 export default Dataset;

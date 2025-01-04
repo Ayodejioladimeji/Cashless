@@ -39,6 +39,7 @@ const auth = async (req: NextRequest) => {
     // Return user data for use in other handlers
     return { id: user._id, role: user.role };
   } catch (err) {
+    console.log(err)
     return new Response(JSON.stringify({ err: "Invalid Authentication." }), {
       status: 400,
     });

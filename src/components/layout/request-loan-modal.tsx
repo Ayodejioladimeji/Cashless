@@ -20,9 +20,9 @@ export const RequestLoanModal = () => {
     const [tenure, setTenure] = useState<string>("")
     const [purpose, setPurpose] = useState<string>("")
     const [requestloading, setRequestloading] = useState<boolean>(false);
-    const inputRef = useRef<any>(null);
-    const {state, dispatch} = useContext(DataContext)
-    const [errors, setErrors] = useState({ amount: "", tenure: "", purpose:"" });
+    const inputRef = useRef<HTMLInputElement | null>(null);
+    const { state, dispatch } = useContext(DataContext)
+    const [errors, setErrors] = useState({ amount: "", tenure: "", purpose: "" });
 
 
     // validate form
@@ -45,7 +45,7 @@ export const RequestLoanModal = () => {
     };
 
 
-    const handleSubmit = async (e: any) => {
+    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         const token = localStorage.getItem("token") || ""
 
@@ -55,14 +55,14 @@ export const RequestLoanModal = () => {
             purpose
         }
 
-        if(validateForm()){
+        if (validateForm()) {
             setRequestloading(true)
 
             const res = await PostRequest("/loan", payload, token)
-            if(res?.status === 200 || res?.status === 201){
+            if (res?.status === 200 || res?.status === 201) {
                 dispatch({ type: ACTIONS.CALLBACK, payload: !state?.callback })
                 cogoToast.success(res?.data?.message)
-                dispatch({type:ACTIONS.REQUEST_LOAN_MODAL, payload:false})
+                dispatch({ type: ACTIONS.REQUEST_LOAN_MODAL, payload: false })
             }
 
             setRequestloading(false)
@@ -85,7 +85,7 @@ export const RequestLoanModal = () => {
                             Request Loan
                         </h1>
                         <button
-                        onClick={() => dispatch({type:ACTIONS.REQUEST_LOAN_MODAL, payload:false})}
+                            onClick={() => dispatch({ type: ACTIONS.REQUEST_LOAN_MODAL, payload: false })}
                         >
                             <svg
                                 xmlns="http://www.w3.org/2000/svg"
@@ -118,11 +118,10 @@ export const RequestLoanModal = () => {
                             id="channel-name"
                             value={amount}
                             placeholder="Enter loan amount"
-                            onChange={(e) =>
-                            {
-                                setAmount(formatMoney(e.target.value)),
-                                setErrors((prevErrors) => ({ ...prevErrors, amount: "" }));
-                               }
+                            onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+                                setAmount(formatMoney(e.target.value));
+                                    setErrors((prevErrors) => ({ ...prevErrors, amount: "" }));
+                            }
                             }
                             className="w-full py-3 text-sm text-[#747474] px-4 border rounded-md border-[#D0D0FD] outline-none focus:border-primary-500"
                             ref={inputRef}
@@ -171,7 +170,7 @@ export const RequestLoanModal = () => {
                         <label htmlFor="channel-name" className="block text-sm mb-1 font-semibold">
                             Loan Purpose
                         </label>
-                        
+
                         <Select onValueChange={(value) => { setPurpose(value), setErrors((prevErrors) => ({ ...prevErrors, purpose: "" })); }} value={purpose}>
                             <SelectTrigger className="w-full h-[45px] p-3 text-primary border border-gray-300 rounded-md bg-white focus:outline-none focus:ring-1 focus:ring-primary-500 focus:border-primary-300">
                                 <SelectValue placeholder="Select loan purpose" />
@@ -199,21 +198,19 @@ export const RequestLoanModal = () => {
                 </form>
 
                 <div className="w-full flex justify-end">
-                    <div onClick={handleSubmit}>
-                        <button
-                            type="submit"
-                            className="w-[140px] h-[40px] flex items-center justify-center rounded-md bg-[#7141F8] hover:bg-[#8760f8] text-white"
-                        >
-                            {requestloading ? (
-                                <span className="flex items-center gap-x-2">
-                                    <span className="animate-pulse">Requesting...</span>{" "}
-                                    <Loading width="20" height="20" />
-                                </span>
-                            ) : (
-                                <span>Request</span>
-                            )}
-                        </button>
-                    </div>
+                    <button
+                        type="submit"
+                        className="w-[140px] h-[40px] flex items-center justify-center rounded-md bg-[#7141F8] hover:bg-[#8760f8] text-white"
+                    >
+                        {requestloading ? (
+                            <span className="flex items-center gap-x-2">
+                                <span className="animate-pulse">Requesting...</span>{" "}
+                                <Loading width="20" height="20" />
+                            </span>
+                        ) : (
+                            <span>Request</span>
+                        )}
+                    </button>
                 </div>
             </div>
         </div>

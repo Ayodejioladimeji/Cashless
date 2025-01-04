@@ -45,5 +45,5 @@ const loanSchema = new mongoose.Schema(
     }
 );
 
-let Dataset = mongoose.models.loan || mongoose.model("loan", loanSchema);
+const Dataset = mongoose.models.loan || mongoose.model("loan", loanSchema);
 export default Dataset;

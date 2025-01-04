@@ -23,9 +23,8 @@ interface TransactionProps {
 }
 
 const Transactions = () => {
-    const [transactionType, setTransactionType] = useState("all")
     const [transactions, setTransactions] = useState<TransactionProps[]>([])
-    const { state, dispatch } = useContext(DataContext)
+    const { state} = useContext(DataContext)
     const [loading, setLoading] = useState(true)
     const [sortInput, setSortInput] = useState<string>("all")
     const [filterInput, setFilterInput] = useState<string>("")
