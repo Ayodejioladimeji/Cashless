@@ -10,7 +10,7 @@ import cogoToast from '@successtar/cogo-toast';
 
 
 
-//
+// 
 
 function Signup() {
     const [email, setEmail] = useState("");
@@ -94,7 +94,7 @@ function Signup() {
     return (
         <>
             <main className="w-full min-h-screen flex flex-col">
-                <section className="w-full md:w-[55%] flex flex-col max-w-xs md:max-w-lg mx-auto items-start justify-start pt-[20px] md:pt-0">
+                <section className="w-full flex flex-col max-w-lg mx-auto items-start justify-start pt-[20px] md:pt-0">
 
                     <div className="w-full flex flex-col justify-center mt-[60px] md:mt-[80px] items-center gap-[8px] mb-[32px]">
                         <h1 className="w-full text-center text-primary-500 text-[24px] md:text-[28px] font-[600] leading-[30px] md:leading-[35px]">
