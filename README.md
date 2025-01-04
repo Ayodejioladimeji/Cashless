@@ -104,7 +104,7 @@ Follow these steps to get the project up and running on your local machine.
 
 ## Live Demo
 
-Access the live demo hosted on [Vercel - https://cashless.vercel.app](https://cashless.vercel.app):
+Access the live demo hosted on [Vercel - https://kashless.vercel.app](https://kashless.vercel.app):
 
 
 ## Approach
