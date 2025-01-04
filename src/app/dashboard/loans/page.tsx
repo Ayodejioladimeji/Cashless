@@ -89,7 +89,7 @@ const Loans = () => {
                             {!showlimit ? <EyeIcon size={20} className="text-gray-500 cursor-pointer" onClick={() => setShowlimit(true)} />
                                 : <EyeOffIcon size={20} className="text-gray-500 cursor-pointer" onClick={() => setShowlimit(false)} />}
                         </div>
-                        <h1 className="text-3xl font-bold text-primary-500">{showlimit ? "₦500,000" : "*****"}</h1>
+                        <h1 className="text-3xl font-bold text-primary-500">{showlimit ? "₦200,000" : "*****"}</h1>
                     </div>
                 </div>
 

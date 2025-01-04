@@ -12,12 +12,12 @@ export const WithdrawMoneyModal = () => {
     const [amount, setAmount] = useState<string>("")
     const [requestloading, setRequestloading] = useState<boolean>(false);
     const inputRef = useRef<HTMLInputElement | null>(null);
-    const {state, dispatch} = useContext(DataContext)
-    const [errors, setErrors] = useState({ amount: ""});
+    const { state, dispatch } = useContext(DataContext)
+    const [errors, setErrors] = useState({ amount: "" });
 
 
     const validateForm = () => {
-        const newErrors = { amount: ""};
+        const newErrors = { amount: "" };
         if (!amount) {
             newErrors.amount = "Amount is required";
         }
@@ -31,16 +31,16 @@ export const WithdrawMoneyModal = () => {
         e.preventDefault();
 
         const payload = {
-            amount : Number(removeNum(amount)), 
+            amount: Number(removeNum(amount)),
         }
 
-        if(validateForm()){
+        if (validateForm()) {
             setRequestloading(true)
 
             const res = await PostRequest("/transaction/withdraw", payload, state?.token)
-            if(res?.status === 200 || res?.status === 201){
-                dispatch({type:ACTIONS.CALLBACK, payload:!state?.callback})
-                dispatch({type:ACTIONS.WITHDRAW_MONEY_MODAL, payload:false})
+            if (res?.status === 200 || res?.status === 201) {
+                dispatch({ type: ACTIONS.CALLBACK, payload: !state?.callback })
+                dispatch({ type: ACTIONS.WITHDRAW_MONEY_MODAL, payload: false })
                 cogoToast.success(res?.data?.message)
             }
 
@@ -64,7 +64,7 @@ export const WithdrawMoneyModal = () => {
                             Withdraw Money
                         </h1>
                         <button
-                        onClick={() => dispatch({type:ACTIONS.WITHDRAW_MONEY_MODAL, payload:false})}
+                            onClick={() => dispatch({ type: ACTIONS.WITHDRAW_MONEY_MODAL, payload: false })}
                         >
                             <svg
                                 xmlns="http://www.w3.org/2000/svg"
@@ -97,11 +97,10 @@ export const WithdrawMoneyModal = () => {
                             id="amount"
                             value={amount}
                             placeholder="Enter loan amount"
-                            onChange={(e) =>
-                            {
+                            onChange={(e) => {
                                 setAmount(formatMoney(e.target.value)),
-                                setErrors((prevErrors) => ({ ...prevErrors, amount: "" }));
-                               }
+                                    setErrors((prevErrors) => ({ ...prevErrors, amount: "" }));
+                            }
                             }
                             className="w-full py-3 text-sm text-[#747474] px-4 border rounded-md border-[#D0D0FD] outline-none focus:border-primary-500"
                             ref={inputRef}
@@ -114,8 +113,8 @@ export const WithdrawMoneyModal = () => {
                         )}
                     </div>
 
-                <div className="w-full flex justify-end">
-               
+                    <div className="w-full flex justify-end">
+
                         <button
                             type="submit"
                             className="w-[140px] h-[40px] flex items-center justify-center rounded-md bg-[#7141F8] hover:bg-[#8760f8] text-white"
@@ -129,8 +128,8 @@ export const WithdrawMoneyModal = () => {
                                 <span>Withdraw</span>
                             )}
                         </button>
-             
-                </div>
+
+                    </div>
                 </form>
 
             </div>

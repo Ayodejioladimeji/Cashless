@@ -120,7 +120,7 @@ export const RequestLoanModal = () => {
                             placeholder="Enter loan amount"
                             onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
                                 setAmount(formatMoney(e.target.value));
-                                    setErrors((prevErrors) => ({ ...prevErrors, amount: "" }));
+                                setErrors((prevErrors) => ({ ...prevErrors, amount: "" }));
                             }
                             }
                             className="w-full py-3 text-sm text-[#747474] px-4 border rounded-md border-[#D0D0FD] outline-none focus:border-primary-500"
@@ -195,23 +195,23 @@ export const RequestLoanModal = () => {
                             </small>
                         )}
                     </div>
+                    <div className="w-full flex justify-end">
+                        <button
+                            type="submit"
+                            className="w-[140px] h-[40px] flex items-center justify-center rounded-md bg-[#7141F8] hover:bg-[#8760f8] text-white"
+                        >
+                            {requestloading ? (
+                                <span className="flex items-center gap-x-2">
+                                    <span className="animate-pulse">Requesting...</span>{" "}
+                                    <Loading width="20" height="20" />
+                                </span>
+                            ) : (
+                                <span>Request</span>
+                            )}
+                        </button>
+                    </div>
                 </form>
 
-                <div className="w-full flex justify-end">
-                    <button
-                        type="submit"
-                        className="w-[140px] h-[40px] flex items-center justify-center rounded-md bg-[#7141F8] hover:bg-[#8760f8] text-white"
-                    >
-                        {requestloading ? (
-                            <span className="flex items-center gap-x-2">
-                                <span className="animate-pulse">Requesting...</span>{" "}
-                                <Loading width="20" height="20" />
-                            </span>
-                        ) : (
-                            <span>Request</span>
-                        )}
-                    </button>
-                </div>
             </div>
         </div>
     );
