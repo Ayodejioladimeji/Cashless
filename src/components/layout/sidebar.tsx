@@ -2,17 +2,16 @@ import { ACTIONS } from "@/store/Actions";
 import { DataContext } from "@/store/GlobalState";
 import { BarChart2Icon, CreditCardIcon, HandCoins, LogOut, XIcon } from "lucide-react";
 import Link from "next/link";
-import { usePathname, useRouter } from "next/navigation";
+import { usePathname } from "next/navigation";
 import React, { useContext } from "react";
 
 const Sidebar = () => {
     const pathname = usePathname()
-    const router = useRouter()
     const {state, dispatch} = useContext(DataContext)
 
     const handleLogout = () => {
         localStorage.clear();
-        router.push("/");
+        window.location.href="/"
     };
 
     // 
