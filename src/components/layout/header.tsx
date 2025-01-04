@@ -16,7 +16,7 @@ const Header = (props:Props) => {
     return(
         <section className="flex items-center justify-between px-3 md:px-5 h-[80px] border-b">
             <div className="flex items-center ">
-                <MenuIcon className="flex md:hidden cursor-pointer" onClick={() => dispatch({type:ACTIONS.OPEN_SIDEBAR, payload:true})}/>
+                <MenuIcon role="button" className="flex md:hidden cursor-pointer" onClick={() => dispatch({type:ACTIONS.OPEN_SIDEBAR, payload:true})}/>
                 <h1 className="text-xl font-semibold capitalize">{props.title}</h1>
             </div>
 

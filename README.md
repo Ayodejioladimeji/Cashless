@@ -1,36 +1,116 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Cashless - Loan Management and Wallet Application
+
+
+## ⭐ Star the Repository
+
+If you find this project useful or interesting, please give it a star on GitHub! Your support is greatly appreciated.
+
+![Cashless Screenshot](/src/assets/images/screenshot.png)
+
+## Overview
+
+**Cashless** is a Loan Management and Wallet Application built with [Next.js](https://nextjs.org/) and TypeScript, styled using [Tailwind CSS](https://tailwindcss.com/). This application provides users with a seamless platform to manage loans, transactions, and wallet activities. The application focuses on responsiveness, functionality, and user experience.
+
+## Features
+
+1. **Authentication:**
+   - Login and Registration for users.
+   
+2. **Loan Management:**
+   - Request Loans with validation for inputs (amount, tenure, purpose).
+   - View active loans and loan history.
+   - Repay loans with a seamless process.
+
+3. **Wallet Management:**
+   - Add Money to the wallet.
+   - Withdraw Money with balance validation.
+   - View wallet balance.
+
+4. **Transaction Management:**
+   - View recent transactions.
+   - View all transactions.
+   - Filter and Sort transactions by date, type, or amount.
+
+5. **Responsive Design:**
+   - Fully responsive design optimized for desktop, tablet, and mobile devices.
+
+## Table of Contents
+
+1. [Getting Started](#getting-started)
+2. [Installation](#installation)
+3. [Running the Project](#running-the-project)
+4. [Testing](#testing)
+5. [Live Demo](#live-demo)
 
 ## Getting Started
 
-First, run the development server:
+Follow these steps to get the project up and running on your local machine.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+### Prerequisites
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+- Node.js (>= 20.x)
+- Yarn or npm or pnpm
+- A modern browser
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Installation
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+1. **Clone the repository:**
 
-## Learn More
+    ```bash
+    git clone https://github.com/Ayodejioladimeji/cashless.git
+    cd cashless
+    ```
 
-To learn more about Next.js, take a look at the following resources:
+2. **Install dependencies:**
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+    ```bash
+    pnpm install
+    ```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Running the Project
 
-## Deploy on Vercel
+1. **Start the development server:**
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+    ```bash
+    pnpm run dev
+    ```
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+2. **Build the project for production:**
+
+    ```bash
+    pnpm run build
+    ```
+
+3. **Run the production build:**
+
+    ```bash
+    pnpm run start
+    ```
+
+## Testing
+
+1. **Run Unit Tests:**
+
+    ```bash
+    pnpm run test
+    ```
+
+    ```bash
+    pnpm test -- --coverage
+    ```
+
+2. **Example Component Tested:**
+   ![Cashless Screenshot](/src/assets/images/coverage.png)
+
+## Live Demo
+
+Access the live demo hosted on [Vercel - https://cashless.vercel.app](https://cashless.vercel.app):
+
+
+## Approach
+
+- Followed best practices for React and TypeScript to ensure clean and maintainable code.
+- Used Tailwind CSS for rapid and consistent styling.
+- Implemented Backend API for the application to show the features in real-time.
+- Implemented responsive design principles for a seamless user experience on all devices.
+

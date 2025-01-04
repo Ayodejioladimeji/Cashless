@@ -2,13 +2,6 @@
 import React, { useRef } from "react";
 import { useState, useContext } from "react";
 import Loading from "@/components/ui/loading";
-import {
-    Select,
-    SelectContent,
-    SelectItem,
-    SelectTrigger,
-    SelectValue,
-} from "@/components/ui/select";
 import { PostRequest } from "@/utils/request";
 import { DataContext } from "@/store/GlobalState";
 import { ACTIONS } from "@/store/Actions";
@@ -18,7 +11,6 @@ import cogoToast from "@successtar/cogo-toast";
 export const AddMoneyModal = () => {
     const [amount, setAmount] = useState<string>("")
     const [recipient, setRecipient] = useState<string>("")
-    const [purpose, setPurpose] = useState<string>("")
     const [requestloading, setRequestloading] = useState<boolean>(false);
     const inputRef = useRef<any>(null);
     const {state, dispatch} = useContext(DataContext)

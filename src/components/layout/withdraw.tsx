@@ -10,7 +10,6 @@ import cogoToast from "@successtar/cogo-toast";
 
 export const WithdrawMoneyModal = () => {
     const [amount, setAmount] = useState<string>("")
-    const [recipient, setRecipient] = useState<string>("")
     const [requestloading, setRequestloading] = useState<boolean>(false);
     const inputRef = useRef<any>(null);
     const {state, dispatch} = useContext(DataContext)
